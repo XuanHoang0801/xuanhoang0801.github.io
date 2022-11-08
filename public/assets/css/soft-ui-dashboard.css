@@ -20974,6 +20974,8 @@ fieldset:disabled .btn {
 .dropdown .dropdown-menu.dropdown-menu-end {
   right: 0 !important;
   left: auto !important;
+  overflow-y: auto;
+    height: 400px;
 }
 
 .dropdown .dropdown-menu.dropdown-menu-end:before {

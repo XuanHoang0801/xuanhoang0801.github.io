@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Cập Nhật Nhà Sản Xuất')
-@section('url','/ nha-san-xuat/{{$producer->id}}')
+@section('url','/ nha-san-xuat / '.$producer->name.'')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">

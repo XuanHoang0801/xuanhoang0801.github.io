@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\card;
 use App\Models\Post;
 use GuzzleHttp\Pool;
+use App\Models\Level;
 use App\Models\order;
 use App\Models\Comment;
 use App\Models\product;
@@ -28,6 +29,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'fullname',
+        'birtday',
+        'gender',
+        'image',
+        'address',
+        'level_user',
+        'level',
     ];
 
     /**
@@ -68,6 +76,10 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+    public function level()
+    {
+        return $this->hasMany(Level::class);
     }
     
 }

@@ -54,9 +54,6 @@
                   </div>
             </div>               
             @endforeach
-            <div class="col-md-12">
-               <a class="read_more" href="#">See More</a>
-            </div>
          </div>
       </div>
    <div class="mt-3"></div>
@@ -82,9 +79,7 @@
 
          </div>             
          @endforeach
-         <div class="col-md-12">
-            <a class="read_more" href="#">See More</a>
-         </div>
+         
       </div>
       </div>
    </div>
@@ -108,6 +103,8 @@
                setTimeout(function() {
                  $(".alert").remove();
                  }, 2000);
+                $('.amount-cart').html(data['amount']);
+
            });
      });
 

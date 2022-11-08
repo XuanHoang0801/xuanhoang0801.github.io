@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Thêm Danh Mục')
-@section('url','/ danh-muc/create')
+@section('url','/ danh-muc / create')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
@@ -22,9 +22,10 @@
                     </div>
                     <div class="form-group">
                       <button class="btn btn-primary btn-sm">Thêm mới</button>
+                      <a href="/admin/danh-muc" class="btn btn-danger btn-sm back">Trở về</a>
                     </div>
-                </form>
-            </div>
+                  </form>
+                  </div>
           </div>
         </div>
       </div>
@@ -39,9 +40,9 @@
 <script>
    $(document).ready(function(){
     $('.alert').delay(1000).hide(300);
-                setTimeout(function() {
-                $(".alert").remove();
-                }, 2000);
+      setTimeout(function() {
+      $(".alert").remove();
+    }, 2000);
    });
 
 </script>

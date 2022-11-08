@@ -10,6 +10,7 @@ use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use Laravel\Ui\Presets\React;
 
 class ProductController extends Controller
 {
@@ -18,12 +19,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $product=product::with('categories','nsx','users')->orderBy('id','DESC')->paginate(5);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.product.list',compact('product','notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.product.list',compact('product','notify','amount','url'));
     }
 
     /**
@@ -31,14 +33,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $categories=Categories::all();
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $url = $request->url();
+        $amount = Notify::where('status',0)->get();
 
         $producer=nsx::all();
         // return view('admin.product.add',['categories'=>$categories, 'producer'=>$producer]);
-        return view('admin2.pages.product.add',compact('categories','producer','notify'));
+        return view('admin2.pages.product.add',compact('categories','producer','notify','amount','url'));
     }
 
     /**
@@ -52,6 +56,7 @@ class ProductController extends Controller
         $product=new product();
         $product->name=$request->name;
         $product->body=$request->body;
+        $product->qty=$request->qty;
         $product->categories_id=$request->categories;
         $product->producer_id=$request->producer;
         $product->user_id=$request->user()->id;
@@ -69,7 +74,6 @@ class ProductController extends Controller
             $file= $request->file('file');
             $name = $file->getClientOriginalName(); //Lấy tên file
             $product->image=$name;
-            // $file->move('assets/img/',$request->name);
             $upload = $file->move('assets/img/',$name); //upload file vào thư mục     
         }
         $product->save();
@@ -82,14 +86,16 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
         $product=product::with('categories','nsx','users')->find($id);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
 
         $categories=Categories::all();
         $producer=nsx::all();
-        return view('admin2.pages.product.update',compact('product','categories','producer','notify'));
+        return view('admin2.pages.product.update',compact('product','categories','producer','notify','amount','url'));
     }
 
     /**
@@ -116,6 +122,7 @@ class ProductController extends Controller
         $product=product::find($id);
         $product->name=$request->name;
         $product->body=$request->body;
+        $product->qty=$request->qty;
         $product->categories_id=$request->categories;
         $product->producer_id=$request->producer;
         $product->user_id=$request->user()->id;
@@ -158,12 +165,13 @@ class ProductController extends Controller
         product::find($id)->delete();
         return redirect('/admin/quan-ly-san-pham')->with(['thongbao'=>'Xóa sản phẩm thành công!']);
     }
-    public function garbage()
+    public function garbage(Request $request)
     {
         $product=product::onlyTrashed()->paginate(5);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.product.garde',compact('product','notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.product.garde',compact('product','notify','amount','url'));
     }
     public function khoiphuc($id)
     {

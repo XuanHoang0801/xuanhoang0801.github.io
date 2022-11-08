@@ -37,7 +37,6 @@ class product extends Model
     public function orders()
     {
         return $this->hasMany(order::class);
-
     }
     public function Wishlist()
     {
@@ -47,7 +46,6 @@ class product extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
-
     }
     
     

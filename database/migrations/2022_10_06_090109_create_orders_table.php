@@ -15,8 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('card_id');
+            $table->string('order_id');
+            $table->string('card_id');
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('product_id')->references('id')->on('products');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

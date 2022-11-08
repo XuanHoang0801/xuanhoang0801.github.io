@@ -20,14 +20,13 @@ class ShoppingCartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $card = Cart::content();
         $qty  = Cart::count();
+        $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->orderby('id','DESC')->get();
-        return view('shoppingcart',compact('card','qty','amount'));
-
-
+        return view('shoppingcart',compact('card','qty','amount','url'));
     }
 
     /**
@@ -61,7 +60,6 @@ class ShoppingCartController extends Controller
             'success'=>'<div class="alert alert-success mt-3"><i class="fas fa-check"></i> Đã thêm vào giỏ hàng  </div>',
             'amount'=> $amount
         ]);
-
     }
 
     public function addWishlist(Request $request)
@@ -73,17 +71,17 @@ class ShoppingCartController extends Controller
             $wishlist->product_id=$request->id;
             $wishlist->user_id=$user;
             $wishlist->save();
+            $qty = Cart::count();
             return response()->json([
                 'success'=>'<div class="alert alert-success mt-3">Đã thêm vào mục yêu thích </div>',
+                'qty'=>$qty,
             ]);
         }
         else{
-            
             return response()->json([
                 'success'=>'<div class="alert alert-danger mt-3">Sản phẩm đã tồn tại trong mục yêu thích! </div>',
             ]);
         }
-        
     }
 
     public function add(Request $request)
@@ -101,7 +99,6 @@ class ShoppingCartController extends Controller
             'success'=>'<div class="alert alert-success mt-3"><i class="fas fa-check"></i> Đã thêm vào giỏ hàng  </div>',
             'amount'=>$amount
         ]);
-
     }
 
     /**
@@ -161,12 +158,11 @@ class ShoppingCartController extends Controller
         $price =$request->price;
         Cart::update($id, $qty);
         $cart = Cart::get($id);
-
+        $qty = Cart::count();
         return response()->json([
             'price'=> $cart->price * $cart->qty,
             'total'=> Cart::subtotal(0,','),
+            'qty'=> $qty,
         ]);
     }
-
-
 }

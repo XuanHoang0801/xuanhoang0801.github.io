@@ -10,6 +10,7 @@
             <h3>Quản lý bài viết</h3>
             <div class="btn btn-primary btn-sm col-2 add">Thêm mới</div>
             <div class="btn btn-warning btn-sm col-2 garde">Bài viết đã xóa</div>
+            <div class="btn btn-success btn-sm col-2 gt">Bài giới thiệu</div>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -87,6 +88,9 @@
       });
       $('.garde').click(function(){
         window.location.href = "/admin/quan-ly-bai-viet/da-xoa";
+      });
+      $('.gt').click(function(){
+        window.location.href = "/admin/quan-ly-bai-viet/gioi-thieu";
       });
     });
 </script>    

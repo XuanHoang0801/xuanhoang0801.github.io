@@ -14,13 +14,14 @@ class WishlistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user= Auth::user()->id;
         $qty = Cart::count();
+        $url = $request->url();
         $wishlist = Wishlist::with('products')->where('user_id', $user)->get();
         $amount = Wishlist::with('products')->where('user_id', $user)->get();
-        return view('wishlist',compact('qty', 'wishlist','amount'));
+        return view('wishlist',compact('qty', 'wishlist','amount','url'));
     }
 
     /**
@@ -50,13 +51,14 @@ class WishlistController extends Controller
             $wishlist->save();
             $wishlist = Wishlist::where('user_id', $user)->get();
             $amount = count($wishlist);
+            $qty = Cart::count();
             return response()->json([
                 'success'=>'<div class="alert alert-success mt-3"><i class="fas fa-check"></i> Đã thêm vào mục yêu thích </div>',
-                'amount'=> $amount
+                'amount'=> $amount,
+                'qty' =>$qty
             ]);
         }
         else{
-            
             return response()->json([
                 'success'=>'<div class="alert alert-danger mt-3">Sản phẩm đã tồn tại trong mục yêu thích! </div>',
             ]);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -35,26 +36,22 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comment = new Comment();
-        $comment->product_id=$request->id;
-        $comment->name=$request->name;
-        $comment->body=$request->body;
-        $comment->save();
-
-        $name = $request->name;
-        $body = $request->body;
-
-        echo '
-        <div class="form-group div-comment">
-            <p class="name text-primary">'.$name.'</p>
-            <span class="blockquote-footer">
-                        bây giờ
-                       </span>
-            <p class="content ml-3 text-muted">'.$body.'</p>
-            <div style=" width:100%;height: .1px; background:rgb(246, 243, 243)"></div>
-        </div>
-    ';
-        
+            $comment = new Comment();
+            $comment->product_id=$request->id;
+            $comment->name=$request->user()->name;
+            $comment->body=$request->body;
+            $comment->save();
+            $body = $request->body;
+    
+            echo '
+                <div class="form-group div-comment">
+                    <p class="name text-primary">'.$request->user()->name.'</p>
+                    <span class="blockquote-footer">Vừa xong</span>
+                    <p class="content ml-3 text-muted">'.$body.'</p>
+                    <span class="text-danger delete" id="" style="cursor: pointer" data-id="'.$comment->id.'">Xóa</span>
+                    <div style=" width:100%;height: .1px; background:rgb(246, 243, 243)"></div>
+                </div>
+            ';
     }
         
 
@@ -98,8 +95,8 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+       
     }
 }

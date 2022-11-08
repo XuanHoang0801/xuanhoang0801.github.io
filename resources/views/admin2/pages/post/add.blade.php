@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Thêm Bài Viết')
-@section('url','/ quan-ly-bai-viet/create')
+@section('url','/ quan-ly-bai-viet / create')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
@@ -30,7 +30,9 @@
                   </div>
                   <div class="col-md-3">
                     <label for="validationDefault04" class="form-label">Ảnh sản phẩm</label>
-                    <input type="file" class="form-control" name="file">
+                    <input type="file" name="file" id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
+                    <img src="assets/img/img.png" alt="" srcset="" width="100" id="image" class="mt-3">
+
                   </div>
                   <label for="validationDefault01" class="form-label">Nội dung bài viết</label>
                   <textarea type="text" class="ckeditor @error('body') is-invalid @enderror" value="{{old('body')}}" name="body" placeholder="Nhập mô tả sản phẩm..."></textarea>
@@ -50,28 +52,21 @@
     @if(session('thongbao'))
     <div class="success" style="position: fixed;right: 0;top: 0;"> 
       <div class="alert alert-success mt-3">{{session('thongbao')}}</div>
-
-     </div>
+    </div>
     @endif
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script>
-   $(document).ready(function()
-   {
-     
-     $('#categories').change(function()
-     {
+  $(document).ready(function()
+  { 
+    $('#categories').change(function()
+    {
        
-        });
-        $('.alert').delay(1000).hide(300);
-          setTimeout(function() 
-          {
-            $(".alert").remove();
-          }, 2000);
-
-      });
-
-
-
+    });
+    $('.alert').delay(1000).hide(300);
+      setTimeout(function() 
+      {
+        $(".alert").remove();
+      }, 2000);
+  });
 </script>
-    
 @endsection

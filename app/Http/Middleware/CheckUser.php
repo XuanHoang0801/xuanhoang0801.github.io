@@ -25,11 +25,11 @@ class CheckUser
             }
             else{
                 Auth::logout();
-                return redirect('admin/login')->with('loi','Tài khoản hoặc mật khẩu không chính xác!');
+                return redirect('admin/dang-nhap')->with('loi','Tài khoản hoặc mật khẩu không chính xác!');
             }
         }
         else{
-            return redirect('admin/login');
+            return redirect('admin/dang-nhap');
         }
     }
 }

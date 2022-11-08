@@ -13,12 +13,13 @@ class StatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $status= status::all();
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.status.list',compact('status','notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.status.list',compact('status','notify','amount','url'));
     }
 
     /**
@@ -26,11 +27,12 @@ class StatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.status.add',compact('notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.status.add',compact('notify','amount','url'));
         
     }
 
@@ -62,12 +64,13 @@ class StatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $status= status::find($id);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.status.update',compact('status','notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.status.update',compact('status','notify','amount','url'));
 
     }
 

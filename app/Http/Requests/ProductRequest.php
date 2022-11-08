@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
             'price'=>'required|min:4|numeric',
             'promotion'=>'lt:price',
             'body'=>'required',
+            'qty'=>'required'
 
         ];
     }
@@ -41,6 +42,7 @@ class ProductRequest extends FormRequest
             'price.number'=>'Chỉ được phép nhập số!',
             'promotion.lt'=>'Giá khuyến mãi phải nhỏ hơn giá gốc!',
             'body.required'=>'Vui lòng nhập miêu tả sản phẩm!',
+            'qty.required'=>"Vui lòng nhập số lượng sản phẩm có trong kho!"
         ];
     }
 }

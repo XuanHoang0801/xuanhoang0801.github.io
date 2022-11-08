@@ -7,13 +7,13 @@
             <div class="card">
                 <div class="card-header ">Giỏ hàng của bạn</div>
                 @if (session('thongbao'))
-                    <div class="alert alert-success mt-3">{{session('thongbao')}}</div>
+                    <div class="alert alert-success mt-3 mx-3">{{session('thongbao')}}</div>
                 @endif
                 @if (session('loi'))
-                    <div class="alert alert-danger mt-3">{{session('loi')}}</div>
+                    <div class="alert alert-danger mt-3 mx-3">{{session('loi')}}</div>
                 @endif
                 @if ($card->isEmpty())
-                <div class="alert alert-danger mt-3 ">
+                <div class="alert alert-danger mt-3 mx-3 ">
                     Không tồn tại sản phẩm nào trong giỏ hàng của bạn!
                     <a href="/" class="text-primary">Mua ngay</a>
                 </div>
@@ -115,6 +115,7 @@
                $('#tt-'+id).html(data['price'].toLocaleString('en-US') +'&#8363');
                var sum=0;
                $('#sum').html('Tổng tiền:'+ data['total'] +"&#8363");
+               $('.amount-cart').html(data['qty']);
             }); 
 
         });
@@ -136,7 +137,7 @@
                });
                if (sum == 0) 
                {
-                   var text= '<div class="alert alert-danger mt-3 "> Không tồn tại sản phẩm nào trong giỏ hàng của bạn! <a href="/" class="text-primary">Mua ngay</a></div>';
+                   var text= '<div class="alert alert-danger mt-3 mx-3"> Không tồn tại sản phẩm nào trong giỏ hàng của bạn! <a href="/" class="text-primary">Mua ngay</a></div>';
                    $('.empty').html(text);
                    $('table').remove();
                    $('#sum').remove();

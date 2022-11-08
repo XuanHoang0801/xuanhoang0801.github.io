@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Cập Nhật Trạng Thái Đơn Hàng')
-@section('url','/ quan-ly-don-hang/{{$order->id}}')
+@section('url','/ quan-ly-don-hang / '.$order->order_id.'')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
@@ -17,6 +17,10 @@
                 
                 <div class="d-flex justify-content-around mt-3 mb-3">
                     <div class="product">
+                        <div class="form-group">
+                            <label for="" class="form-label ">Mã đơn hàng:</label>
+                            <span class="text-primary">{{$order->order_id}}</span>
+                        </div>
                         <div class="form-group">
                             <label for="" class="form-label">Sản phẩm:</label>
                             <img src="assets/img/{{$order->products->image}}" alt="" width="50">

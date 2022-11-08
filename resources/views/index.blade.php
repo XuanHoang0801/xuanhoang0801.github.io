@@ -74,10 +74,11 @@
                      </div>
                   </div>
                </div>
-                    <div class="row">
+                  <div class="row">
                     <div class="product_main">
-                        @foreach ($product as $item)
-                        <div class="project_box" data-id="{{$item->id}}">
+                     @foreach ($product as $item)
+                     
+                     <div class="project_box" data-id="{{$item->id}}">
                            <a href="/san-pham/{{$item->id}}">
                               
                                <div class="dark_white_bg" >
@@ -86,21 +87,21 @@
                                <h3 class="text-center" style="text-transform: uppercase;"><b>{{$item->name}}</b></h3>
    
                                <p class="text-warning">{{number_format($item->price)}} &#8363</p>
-                              </a>
-                              <button class="btn btn-success mb-2 add-cart">Thêm vào giỏ hàng</button>
+                           </a>
+                              <button class="btn btn-success mb-2 mx-1 add-cart">Thêm vào giỏ hàng</button>
 
                               <div class="success" style="position: fixed;right: 0;top: 0;"> 
                                  <div class="alert"  ></div>
                               </div>
                         </div>
                         @endforeach
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <a class="read_more" href="#">See More</a>
-                        </div>
+                        </div> --}}
+                     </div>
                     </div>
-                    </div>
-                    </div>
-                </div>
+                  </div>
+               </div>
 
  <!-- end project section -->
  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
@@ -122,8 +123,8 @@
                   }, 2000);
                   $('.amount-cart').html(data['amount']);
             });
-
       });
+
    });
  </script>
 @endsection

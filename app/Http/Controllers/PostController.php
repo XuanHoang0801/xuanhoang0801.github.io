@@ -7,6 +7,7 @@ use App\Models\Notify;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use Laravel\Ui\Presets\React;
 
 class PostController extends Controller
 {
@@ -15,12 +16,13 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
        $post = Post::with('categories','users')->paginate(5);
-       $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-       return view('admin2.pages.post.list',compact('post','notify'));
+       $notify = Notify::orderBy('id', 'DESC')->get();
+       $amount = Notify::where('status',0)->get();
+       $url = $request->url();
+       return view('admin2.pages.post.list',compact('post','notify','amount','url'));
     }
 
     /**
@@ -28,12 +30,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $categories = Categories::all();
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
 
-        return view('admin2.pages.post.add',compact('categories','notify'));
+
+        return view('admin2.pages.post.add',compact('categories','notify','amount','url'));
     }
 
     /**
@@ -69,13 +74,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $post = Post::find($id);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
         $categories = Categories::all();
-        return view('admin2.pages.post.update',compact('post','categories','notify'));
+        return view('admin2.pages.post.update',compact('post','categories','notify','amount','url'));
     }
 
     /**
@@ -129,22 +135,32 @@ class PostController extends Controller
         return redirect('/admin/quan-ly-bai-viet')->with(['thongbao'=>'Xóa bài viết thành công!']); 
     }
 
-    public function garbage()
+    public function garbage(Request $request)
     {
         $post=Post::onlyTrashed()->paginate(5);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.post.garde',compact('post','notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status', 0)->get();
+        $url = $request->url();
+        return view('admin2.pages.post.garde',compact('post','notify','amount','url'));
     }
     public function khoiphuc($id)
     {
-        $post=Post::withTrashed()->find($id)->restore();
+        Post::withTrashed()->find($id)->restore();
         return redirect('/admin/quan-ly-bai-viet/da-xoa')->with(['thongbao'=>'Sản phẩm đã được khôi phục!']);
     }
     public function xoa($id)
     {
         Post::withTrashed()->where('id',$id)->forceDelete();
-         return redirect('/admin/quan-ly-bai-viet/da-xoa')->with(['thongbao'=>'Sản phẩm đã bị xóa vĩnh viễn!']);
+        return redirect('/admin/quan-ly-bai-viet/da-xoa')->with(['thongbao'=>'Sản phẩm đã bị xóa vĩnh viễn!']);
 
+    }
+
+    public function gioithieu(Request $request)
+    {
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        $post = Post::with('categories')->find(3);
+        return view('admin2.pages.post.gioithieu',compact('notify','amount','url','post'));
     }
 }

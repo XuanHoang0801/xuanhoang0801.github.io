@@ -44,7 +44,6 @@ class CardController extends Controller
             return redirect('/san-pham/'.$id)->with(['loi' =>'Sản phẩm đã tồn tại trong giỏ hàng!']);
         }
         else{
-
             $card= new card();
             $card->product_id=$id;
             $card->user_id=$request->user()->id;
@@ -86,9 +85,9 @@ class CardController extends Controller
     public function update(Request $request, $id)
     {
         $card=card::find($id);
-       $card->amount=$request->amount;
-       $card->save();
-       return redirect('/gio-hang')->with('thongbao','Cập nhật giỏ hàng thành công!');
+        $card->amount=$request->amount;
+        $card->save();
+        return redirect('/gio-hang')->with('thongbao','Cập nhật giỏ hàng thành công!');
     }
 
     /**
@@ -100,6 +99,5 @@ class CardController extends Controller
     public function destroy($id)
     {
         card::find($id)->delete();
-        // return redirect('/gio-hang')->with('thongbao','Đã xóa sản phẩm khỏi giỏ hàng!');
     }
 }

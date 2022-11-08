@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Cập nhật Danh Mục')
-@section('url','/ danh-muc/create')
+@section('url','/ danh-muc / '.$categories->name.'')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">

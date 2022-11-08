@@ -8,18 +8,28 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+        // public function __construct(Request $request)
+        // {
+        //     $url  = $request->url();
+        //     return response()->json([
+        //         'url'=>$url,
+        //     ]);
+        // }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $categories=Categories::all();
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url  = $request->url();
 
         // return view('admin.danh-muc.list',['categories'=>$categories]);
-        return view('admin2.pages.categories.list',compact('categories','notify'));
+        return view('admin2.pages.categories.list',compact('categories','notify','amount','url'));
     }
 
     /**
@@ -27,11 +37,12 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.categories.add',compact('notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.categories.add',compact('notify','amount','url'));
     }
 
     /**
@@ -63,11 +74,15 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $categories=Categories::find($id);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-        return view('admin2.pages.categories.update', compact('categories','notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->path();
+        $parameters = request()->route()->parameters;
+        return view('admin2.pages.categories.update', compact('categories','notify','amount','url','parameters'));
+        
     }
 
     /**

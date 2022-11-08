@@ -1,106 +1,39 @@
 @extends('admin2.index')
-@section('title','Cập Nhật Trạng Thái')
-@section('url','/ trang-thai/create')
+@section('title','Cập nhật Trạng Thái')
+@section('url','/ trang-thai/'.$status->name.'')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <h3>Cập nhật trạng thái</h3>
+            <h3>Cập nhật trạng thái đơn hàng</h3>
           </div>
           <div class="card-body pb-0">
             <div class="table-responsive p-0">
-                 <form action="/admin/quan-ly-don-hang/{{$order->id}}" method="post">
-        @csrf
-        @method('put')
-        @if (session('thongbao'))
-            <div class="alert alert-success mt-3">{{session('thongbao')}}</div>
-        @endif
-        <div class="d-flex justify-content-around mt-3 mb-3">
-            <div class="product">
-                <div class="form-group">
-                    <label for="" class="form-label">Sản phẩm:</label>
-                    <img src="assets/img/{{$order->products->image}}" alt="" width="50">
-                        
-                    {{$order->products->name}}
-                    
-                </div>
-                
-                <div class="form-group mb-3 pt-3 ">
-                    <label for="" class="form-label ">Số lượng:</label>
-                    {{$order->amount}}
-                    
-                </div>  
-        
-                <div class="form-group">
-                    <label for="" class="form-label ">Giá:</label>
-                    {{number_format($order->products->price)}} &#8363
-                </div> 
-                
-                <div class="form-group mb-3 pt-3">
-                    <label for="" class="form-label ">Tổng tiền:</label>
-                    <span class="text-danger">{{number_format($order->total)}} &#8363</span>
-                </div>
+                <form action="/admin/trang-thai/{{$status->id}}" method="post">
+                    @csrf
+                    @method('put')
+                    <div class="form-group">
+                      <label  class="form-lable text-lg ">Trạng thái:</label>
+                      <input type="text" name="name" placeholder="Nhập tên trạng thái đơn hàng..." class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}{{$status->name}}">
+                      @error('name')
+                      <p class="text-danger mt-3 text-sm">{{ $message }}</p>
+                      @enderror
+                    </div>
 
-                <div class="form-group mb-3 pt-3">
-                    <label for="" class="form-label ">Ngày lập:</label>
-                    <span class="text-primary">{{$order->created_at->format('d/m/Y- H:i:s')}}</span>
-                </div>
-            </div>
-
-            <div class="user">
-                <div class="form-group mb-3 pt-3">
-                    <label for="" class="form-label ">Khách hàng:</label>
-                    <span >{{$order->users->name}}</span>
-                </div>
-        
-                <div class="form-group mb-3 pt-3">
-                    <label for="" class="form-label ">Email:</label>
-                    <span >{{$order->users->email}}</span>
-                </div>
-        
-                <div class="form-group mb-3 pt-3 ">
-                    <label for="" class="form-label ">Số điện thoại:</label>
-                    <span >{{$order->users->phone}}</span>
-                </div>
-        
-                <div class="form-group mb-3 pt-3">
-                    <label for="" class="form-label ">Địa chỉ nhận hàng:</label>
-                    <span >{{$order->address}}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group mb-3 pt-3">
-            <label for="" class="form-label ">Trạng thái đơn hàng:</label>
-            <select class="form-select col-3" aria-label="Default select example" name="status">
-              
-                <option value="{{$order->statuses->id}}">{{$order->statuses->name}}</option>
-                
-                    
-                @foreach ($status as $item)
-                @if ($order->statuses->id == $item->id)
-                    
-                @else
-                <option value="{{$item->id}}">{{$item->name}}</option>
-                @endif
-                @endforeach
-               
-              </select>
-        </div>
-        
-        
-        
-        @error('color')
-        <p class="alert alert-danger mt-3">{{ $message }}</p>
-        @enderror
-        
-        <div class="form-group pb-3">
-            <button type="submit" class="btn btn-success">Cập nhật</button>
-            <a href="/admin/trang-thai" class="btn btn-danger">Trở về</a>
-        </div>
-    </form>
+                    <div class="form-group">
+                      <label  class="form-lable text-lg ">Màu sắc:</label>
+                      <input type="color" name="color" class="form-control-color @error('color') is-invalid @enderror" value="{{old('color')}}{{$status->color}}">
+                      @error('color')
+                      <p class="text-danger mt-3 text-sm">{{ $message }}</p>
+                      @enderror
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-success btn-sm">Cập nhật</button>
+                      <a href="/admin/trang-thai" class="btn btn-danger btn-sm">Trở về</a>
+                    </div>
+                </form>
             </div>
           </div>
         </div>

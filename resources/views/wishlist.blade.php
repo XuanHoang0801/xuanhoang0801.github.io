@@ -13,7 +13,7 @@
                     <div class="alert alert-danger mt-3">{{session('loi')}}</div>
                 @endif
                 @if ($wishlist->isEmpty())
-                <div class="alert alert-danger mt-3 ">
+                <div class="alert alert-danger mt-3 mx-3 ">
                     Không tồn tại sản phẩm nào trong mục yêu thích của bạn của bạn!
                     <a href="/" class="text-primary">Xem ngay</a>
                 </div>
@@ -39,29 +39,22 @@
                             @foreach ($wishlist as $item)
                             
                             <tr data-id="{{$item->products->id}}">
-                                
                                 <th  class="text-center">{{$stt++}}
                                 </th>
                                 <td class="d-flex">
-                                           <a href="/san-pham/{{$item->products->id}}">
-                                            <img src="assets/img/{{$item->products->image}}" alt="" srcset="" width="50">
-                                            <span class="ml-3 name">{{$item->products->name}}</span>
-                                            </a>
-                                           
-                                       </td>
-                                       <td class="text-center">
-                                      
-                                            <span>{{number_format($item->products->price)}} &#8363</span>
-                                            <input type="hidden" name="price" value="{{$item->products->price}}" class="price" >
-                                           </td>  
-                                       {{-- <td  class="text-center" >
-                                           <input type="number" value="{{$item->qty}}" name="amount" min="1" max="100" style="width:50px;text-align: center" class="amount">
-                                       </td> --}}
-                                       
-                                       <td class="text-center">
-                                           <button  type="button"  class="btn btn-success btn-sm add-cart" name="delete"><i class="fas fa-cart-plus"></i></button>
-                                           <button  type="button"  class="btn btn-danger btn-sm delete" name="delete"value="{{$item->id}}"><i class="fas fa-trash-alt"></i></button>
-                                       </td>
+                                    <a href="/san-pham/{{$item->products->id}}">
+                                     <img src="assets/img/{{$item->products->image}}" alt="" srcset="" width="50">
+                                     <span class="ml-3 name">{{$item->products->name}}</span>
+                                    </a>
+                                </td>
+                                 <td class="text-center">
+                                     <span>{{number_format($item->products->price)}} &#8363</span>
+                                     <input type="hidden" name="price" value="{{$item->products->price}}" class="price" >
+                                 </td> 
+                                <td class="text-center">
+                                    <button  type="button"  class="btn btn-success btn-sm add-cart" name="delete"><i class="fas fa-cart-plus"></i></button>
+                                    <button  type="button"  class="btn btn-danger btn-sm delete" name="delete"value="{{$item->id}}"><i class="fas fa-trash-alt"></i></button>
+                                </td>
                                </tr>
                             <div class="success" style="position: fixed;right: 0;top: 0;"> 
                                 <div class="alert"></div>
@@ -69,9 +62,7 @@
                             @endforeach
                         </tbody>
                     </table>  
-                    
-                   
-                    @endif
+                @endif
             </div>
         </div>
     </div>
@@ -94,14 +85,13 @@
                 id:id,
             },
             function(data){
+                $('.amount-cart').html(data['amount']);
                 $('.success').html(data['success']);
                 $('.alert').delay(1000).hide(300);
                 setTimeout(function() {
                   $(".alert").remove();
                   }, 2000);
             }); 
-            // alert(id);
-
         });
     });
 
@@ -120,7 +110,6 @@
             $(".alert").remove();
             }, 2000);
             $('.amount-wishlist').html(data['amount']);
-
        });
      });
  });

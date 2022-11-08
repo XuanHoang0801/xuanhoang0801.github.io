@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -38,7 +39,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
+
     }
 
     /**
@@ -53,6 +55,15 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ],[
+            'name.required'=> ' Tên đăng nhập không được để trống!',
+            'name.string'=> 'Chỉ được nhập ký tự!',
+            'email.required'=> 'Email của bạn không được để trống!',
+            'email.email'=> 'Email không đúng định dạng',
+            'email.uinque'=>'Tài khoản này đã tồn tại!',
+            'password.required'=> 'Bạn chưa nhập mật khẩu!',
+            'password.min'=>'Mật khẩu của bạn phải từ 6 ký tự trở lên!',
+            'password.confirmed' => 'Mật khẩu không trùng khớp!',
         ]);
     }
 
@@ -68,6 +79,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'level'=>1,
         ]);
     }
 }

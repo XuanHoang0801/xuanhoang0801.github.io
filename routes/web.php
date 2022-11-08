@@ -37,14 +37,23 @@ Route::get('/dang-ky',[CustomerController::class,'register']);
 Route::post('/dang-ky',[CustomerController::class,'postRegister']);
 Route::get('/dang-nhap',[CustomerController::class,'login']);
 Route::post('/dang-nhap',[CustomerController::class,'postlogin']);
-Route::get('/',[CustomerController::class,'index']);
-Route::get('/san-pham',[CustomerController::class,'list']);
+Route::get('/',[CustomerController::class,'index'])->name('index');
+Route::get('thong-tin',[CustomerController::class,'profile']);
+Route::get('doi-mat-khau',[CustomerController::class,'changePassword'])->middleware('login');
+Route::post('doi-mat-khau',[CustomerController::class,'changePasswordPost'])->middleware('login');
+Route::get('quen-mat-khau',[CustomerController::class,'emailPassword']);
+Route::get('quen-mat-khau/{token}',[CustomerController::class,'resetPassword']);
+Route::post('/update-user',[CustomerController::class,'updateUser']);
+//Sản phẩm
+Route::get('/san-pham',[CustomerController::class,'list'])->name('san-pham');
 Route::get('/san-pham/{id}',[CustomerController::class,'detail']);
 Route::get('/tim-kiem',[CustomerController::class,'search']);
-// Route::post('/add-card/{id}',[CustomerController::class,'card'])->middleware('login');
+Route::get('/comment/{id}',[CustomerController::class,'destroy']);
+
 //bài viết
-Route::get('/bai-viet',[CustomerController::class,'listpost']);
+Route::get('/bai-viet',[CustomerController::class,'listpost'])->name('post');
 Route::get('/bai-viet/{id}',[CustomerController::class,'detailpost']);
+Route::get('/gioi-thieu',[CustomerController::class,'gioithieu'])->name('gioi-thieu');
 Route::post('/comment-post',[CustomerController::class,'commentpost']);
 
 Route::get('/dat-hang',[CustomerController::class,'DatHang']); 
@@ -61,15 +70,15 @@ Route::get('/ajax/cart-delete/{id}',[ShoppingCartController::class, 'destroy']);
 Route::post('/ajax/fill-product',[AjaxController::class, 'fill']);
 Route::post('/ajax/fill-price',[AjaxController::class, 'fillPrice']);
 Route::post('/ajax/fill-producer',[AjaxController::class, 'fillProducer']);
+Route::post('/ajax/notify-status',[AjaxController::class, 'UpdateNotify']);
+Route::post('/ajax/product-like',[AjaxController::class, 'likeProduct']);
+Route::post('/ajax/post-like',[AjaxController::class, 'likePost']);
+Route::post('/ajax/check-pass',[AjaxController::class, 'checkPass']);
 
-Route::resource('/test', TestCheckController::class);
-
-// Route::resource('/gio-hang',CardController::class)->middleware('login');
 Route::resource('/yeu-thich',WishlistController::class)->middleware('login');
-Route::resource('/cart',ShoppingCartController::class)->middleware('login');
+Route::resource('/gio-hang',ShoppingCartController::class)->middleware('login');
 Route::resource('/don-hang',OrderController::class)->middleware('login');
 Route::resource('/comment',CommentController::class);
-
 
 //admin
 Route::group(['prefix'=>'/admin'], function(){
@@ -80,24 +89,20 @@ Route::group(['prefix'=>'/admin'], function(){
 Route::group(['prefix'=>'/admin','middleware'=>['checkUser']], function(){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    //ajax
-    Route::group(['prefix'=>'/ajax'], function(){
-     Route::get('/producer/{idTheLoai}', [AjaxController::class,'getLoaiTin']);
-    });
-
-    Route::get('/quan-ly-san-pham/da-xoa',[ProductController::class,'garbage']);
+    Route::get('/quan-ly-san-pham/da-xoa',[ProductController::class,'garbage'])->name('quan-ly-san-pham.da-xoa');
     Route::get('/quan-ly-san-pham/khoi-phuc/{id}',[ProductController::class,'khoiphuc']);
     Route::delete('/quan-ly-san-pham/xoa/{id}',[ProductController::class,'xoa']);
-    Route::get('/quan-ly-bai-viet/da-xoa',[PostController::class,'garbage']);
+    Route::get('/quan-ly-bai-viet/da-xoa',[PostController::class,'garbage'])->name('quan-ly-bai-viet.da-xoa');
     Route::get('/quan-ly-bai-viet/khoi-phuc/{id}',[PostController::class,'khoiphuc']);
     Route::get('/quan-ly-bai-viet/xoa/{id}',[PostController::class,'xoa']);
+    Route::get('/quan-ly-bai-viet/gioi-thieu',[PostController::class,'gioithieu']);
+    Route::get('/quan-ly-don-hang/don-huy',[OrderAdminController::class,'garbage'])->name('quan-ly-don-hang.don-huy');
+    
     Route::resource('/danh-muc', CategoriesController::class);
-    // Route::resource('/nha-san-xuat', ProducerController::class);
     Route::resource('/quan-ly-san-pham', ProductController::class);
     Route::resource('/nha-san-xuat', NsxController::class);
     Route::resource('/quan-ly-bai-viet', PostController::class);
     Route::resource('/quan-ly-don-hang',OrderAdminController::class);
-
     Route::resource('/trang-thai', StatusController::class);
 });
 

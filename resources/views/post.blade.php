@@ -7,15 +7,17 @@
             @foreach ($post as $item)
                 
             <a href="bai-viet/{{$item->id}}" class="card mb-3">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="/assets/img/{{$item->image}}" class="img-fluid rounded-start" alt="...">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="/assets/img/{{$item->image}}" class="img-fluid rounded-start m-auto" alt="..." width="240px">
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-md-6">
                     <div class="card-body">
                       <h5 class="card-title">{{$item->title}}</h5>
-                      {{-- <div class="card-text">{!!$item->body!!}</div> --}}
-                      <p class="card-text"><small class="text-muted">{{$item->created_at}}</small></p>
+                      <div class="card-text">
+                        {{-- {!!$item->body!!} --}}
+                      </div>
+                      <div class="card-text"><small class="text-muted">{{$item->created_at}}</small></div>
                     </div>
                   </div>
                 </div>

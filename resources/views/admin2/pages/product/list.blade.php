@@ -72,7 +72,6 @@
                 </tbody>
               </table>
               <div class="d-flex justify-content-center">
-
                 {{$product->links('paginate')}}
               </div>
             </div>

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header ">Đăng nhập</div>
                 @if (session('loi'))
-                    <div class="alert alert-danger mt-3">{{session('loi')}}</div>
+                    <div class="alert alert-danger mt-3 mx-3">{{session('loi')}}</div>
                 @endif
                 <div class="card-body">
                     <form method="POST" action="/dang-nhap">
@@ -60,7 +60,7 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link" href="quen-mat-khau">
                                        Quên mật khẩu?
                                     </a>
                                 @endif

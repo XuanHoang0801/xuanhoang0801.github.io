@@ -15,12 +15,15 @@ class NsxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $producer = nsx::all();
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        
 
-        return view('admin2.pages.nsx.list', compact('producer','notify'));  
+        return view('admin2.pages.nsx.list', compact('producer','notify','amount','url'));  
     }
 
     /**
@@ -28,12 +31,13 @@ class NsxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $categories = Categories::all();
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-        return view('admin2.pages.nsx.add', compact('categories', 'notify'));
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.nsx.add', compact('categories', 'notify','amount','url'));
     }
 
     /**
@@ -67,13 +71,15 @@ class NsxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
         $producer = nsx::find($id);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $url = $request->url();
+        $amount = Notify::where('status',0)->get();
         
         $categories = Categories::all();
-        return view('admin2.pages.nsx.update', compact('producer', 'categories','notify'));
+        return view('admin2.pages.nsx.update', compact('producer', 'categories','notify','amount','url'));
 
     }
 

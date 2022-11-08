@@ -9,10 +9,11 @@ use App\Models\status;
 use App\Models\product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class order extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     public function cards()
     {
         return $this->belongsTo(card::class,'card_id','id');

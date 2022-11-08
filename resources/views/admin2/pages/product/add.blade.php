@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Thêm Sản Phẩm')
-@section('url','/ quan-ly-san-pham/create')
+@section('url','/ quan-ly-san-pham / create')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
@@ -14,7 +14,7 @@
               <form class="row g-3" action="/admin/quan-ly-san-pham" method="post" enctype="multipart/form-data">
                 @csrf
                   <div class="col-md-4">
-                    <label for="validationDefault01" class="form-label">Tên sản phẩm</label>
+                    <label for="validationDefault01" class="form-label mx-2 my-2">Tên sản phẩm</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" name="name" placeholder="Nhập tên sản phẩm...">
                     @error('name')
                     <p class="text-danger mt-3 text-sm">{{ $message }}</p>
@@ -22,20 +22,31 @@
 
                     <div class="mt-3">
                       <div class="d-flex mb-3">
-                        <label for="validationDefault02" class="form-label col-4">Giá sản phẩm</label>
-                        <input type="number" class="form-control @error('price') is-invalid @enderror price" value="{{old('price')}}" name="price" placeholder="Nhập giá sản phẩm..."> &#8363
-                        @error('price')
-                        <p class="text-danger mt-3 text-sm">{{ $message }}</p>
-                        @enderror
+                        <label for="validationDefault02" class="form-label col-4 mx-2 my-2">Giá sản phẩm:</label>
+                        <input type="number" class="form-control @error('price') is-invalid @enderror price" value="{{old('price')}}" name="price" placeholder="Nhập giá sản phẩm...">
+                        <span class="mx-2 my-2">&#8363</span>
+
                       </div>
+                      @error('price')
+                      <p class="text-danger mt-3 text-sm">{{ $message }}</p>
+                      @enderror
                         
                       <div class="d-flex">
-                        <label for="validationDefault02" class="form-label col-4">Giá khuyến mãi</label>
-                        <input type="number" class="form-control @error('promotion') is-invalid @enderror promotion" value="{{old('promotion')}}" name="promotion" placeholder="Nhập giá khuyến mãi..."> &#8363
-                        @error('promotion')
-                        <p class="text-danger mt-3 text-sm">{{ $message }}</p>
-                        @enderror
+                        <label for="validationDefault02" class="form-label col-4 mx-2 my-2">Giá khuyến mãi:</label>
+                        <input type="number" class="form-control @error('promotion') is-invalid @enderror promotion" value="{{old('promotion')}}" name="promotion" placeholder="Nhập giá khuyến mãi..."> 
+                        <span class="mx-2 my-2">&#8363</span>
                       </div>
+                      @error('promotion')
+                      <p class="text-danger mt-3 text-sm">{{ $message }}</p>
+                      @enderror
+
+                      <div class="d-flex mt-3">
+                        <label for="validationDefault02" class="form-label col-4 mx-2 my-2">Số lượng trong kho:</label>
+                        <input type="number" class="form-control  @error('qty') is-invalid @enderror qty" value="{{old('qty')}}" name="qty" placeholder="Nhập số lượng sản phẩm..."> 
+                      </div>
+                      @error('qty')
+                      <p class="text-danger mt-3 text-sm">{{ $message }}</p>
+                      @enderror
                       
                     </div>
 
@@ -47,8 +58,9 @@
                       <option value="{{$cat->id}}">{{$cat->name}}</option>
                       @endforeach
                     </select>
-                    <label for="validationDefault04" class="form-label">Ảnh sản phẩm</label>
-                    <input type="file" class="form-control" name="file">
+                    <label for="validationDefault04" class="form-label mt-3">Ảnh sản phẩm</label>
+                    <input type="file" name="file" id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
+                    <img src="assets/img/img.png" alt="" srcset="" width="100" id="image" class="mt-3">
                   </div>
                   <div class="col-md-3">
                     <label for="validationDefaultUsername" class="form-label">Nhà sản xuất</label>

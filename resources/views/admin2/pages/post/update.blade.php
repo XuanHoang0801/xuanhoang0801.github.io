@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Cập Nhật Bài Viết')
-@section('url','/ quan-ly-bai-viet/{{$post->id}}')
+@section('url','/ quan-ly-bai-viet / '.$post->id.'')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
@@ -39,8 +39,8 @@
                   </div>
                   <div class="col-md-2">
                     <label for="validationDefault04" class="form-label">Ảnh sản phẩm</label>
-                    <input type="file" class="form-control" name="file">
-                    <img src="/assets/img/{{$post->image}}" alt="" width="100" class="mt-3">
+                    <input type="file" name="file" id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
+                    <img src="/assets/img/{{$post->image}}" id="image" alt="" width="100" class="mt-3">
                   </div>
                   
                   <label for="validationDefault01" class="form-label">Nội dung bài viết</label>
@@ -85,9 +85,6 @@
           }, 2000);
 
       });
-
-
-
 </script>
     
 @endsection

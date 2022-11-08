@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Thêm Nhà Sản Xuất')
-@section('url','/ nha-san-xuat/create')
+@section('url','/ nha-san-xuat / create')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">

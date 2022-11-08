@@ -19,14 +19,14 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user=Auth::user()->id;
         $qty = Cart::count();
+        $url = $request->url();
         $order=order::with('products','statuses','users','cards')->where('user_id',$user)->get();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-        
-        return view('bill',compact('qty', 'order','amount'));
+        return view('bill',compact('qty', 'order','amount','url'));
     }
 
     /**
@@ -55,7 +55,11 @@ class OrderController extends Controller
         $id=$request->id;
         foreach ($id as $id){
             $card = Cart::get($id);
+            $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $ma = substr(str_shuffle($permitted_chars),0, 16);
+            $order_id ='ĐH'.$ma.'';
             $order = new order();
+            $order->order_id = $order_id;
             $order->card_id=$id;
             $order->user_id=$user;
             $order->status_id=1;
@@ -64,13 +68,13 @@ class OrderController extends Controller
             $order->address=$request->address;
             $order->total=$card->price * $card->qty;
             $order->save();
+
             $notify = new Notify();
             $notify->body = 'Có đơn hàng '.$order ->products->name.' mới!';
             $notify->order_id= $order->id;
             $notify->save();
         }
         return redirect('/don-hang');   
-
     }
 
     /**
@@ -119,9 +123,13 @@ class OrderController extends Controller
         $notify = new Notify();
         $notify->body = 'Đơn hàng '.$order->products->name .' của '.$order->users->name.' đã bị hủy';
         $notify->order_id = $id;
+        $notify->type = 1;
         $notify->save();
+        Notify::where('order_id',$id)->where('type',0)->delete();
+        $order= order::find($id);
+        $order->status_id = 5;
+        $order->save();
         order::find($id)->delete();
-
         return redirect('/don-hang');
     }
 }

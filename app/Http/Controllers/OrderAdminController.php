@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\order;
 use App\Models\Notify;
+use App\Models\product;
 use App\Models\status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,13 +16,13 @@ class OrderAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $order=order::with('products','statuses','users','cards')->paginate(5);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
-
-
-        return view('admin2.pages.order.list',compact('order','notify'));
+        $order=order::with('products','statuses','users','cards')->orderBy('id','DESC')->paginate(5);
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.order.list',compact('order','notify','amount','url'));
     }
 
     /**
@@ -51,12 +52,17 @@ class OrderAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
         $order=order::with('products','statuses','users','cards')->find($id);
-        $notify = Notify::where('status',0)->orderBy('id', 'DESC')->get();
+        if (!($order)) {
+            return redirect('404');
+        }
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
         $status =status::all();
-        return view('admin2.pages.order.update',compact('order','status','notify'));
+        $url = $request->url();
+        return view('admin2.pages.order.update',compact('order','status','notify','amount','url'));
     }
 
     /**
@@ -82,6 +88,13 @@ class OrderAdminController extends Controller
         $order= order::find($id);
         $order->status_id=$request->status;
         $order->save();
+        if($request->status == 4){
+
+            $product = product::find($order->product_id);
+            $product->qty--;
+            $product->buy++;
+            $product->save();
+        }
         return redirect('/admin/quan-ly-don-hang/'.$id.'')->with(['thongbao'=>'Đã cập nhật đơn hàng!']);
     }
 
@@ -94,5 +107,14 @@ class OrderAdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function garbage(Request $request)
+    {
+        $order = order::onlyTrashed()->get();
+        $notify = Notify::orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.order.garbage',compact('order','notify','amount','url'));
     }
 }

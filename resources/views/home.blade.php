@@ -7,13 +7,14 @@
       <!-- mobile metas -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- CSRF Token -->
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <!-- site metas -->
       <title>@yield('title')</title>
       <base href="{{asset("")}}">
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
-      <meta name="csrf-token" content="{{ csrf_token() }}">
       <!-- bootstrap css -->
       <link rel="stylesheet" href="assets/css/bootstrap.min.css">
       <!-- style css -->
@@ -66,6 +67,7 @@
                      </div>
                      <div class="col-md-4">
                         <div class="se_fonr1">
+                              <i class="fas fa-bell mx-3 mt-1"></i>
                            <form action="#" >
                               <div class="select-box">
                                  <label for="select-box1" class="label select-box1"><span class="label-desc">English</span> </label>
@@ -81,31 +83,38 @@
                             @if (Route::has('login'))
                             
                                 @auth
-                                <li class="nav-item dropdown">
+                                <li class="dropdown">
                                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                     {{ Auth::user()->name }}
-                                 </a>
- 
-                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">  
-                                     <div class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                      document.getElementById('logout-form').submit();">
-                                         {{ __('Logout') }}
-                                 </div>
- 
-                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                         @csrf
-                                     </form>
-                                 </div>
-                             </li>
+                                    {{ Auth::user()->name }}
+                                </a>
+                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="padding: 0px">
+                                    <li>
+                                       <a class="dropdown-item"  href="/thong-tin">Thông tin </a>
+                                    </li>
+                                    <li>
+                                       <a class="dropdown-item"  href="/doi-mat-khau">Đổi mật khẩu</a>
+                                    </li>
+                                    <li>
+                                       <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                       </a>
+
+                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                          @csrf
+                                       </form>
+                                    </li>
+                                 </ul>
+                                 </li>
+                                
+                                 
                                 @else
                                     <a href="/dang-nhap" class="text-sm text-gray-700 dark:text-gray-500 underline">Đăng nhập</a>
-            
-                                    <a href="dang-ky" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Đăng ký</a>
-                                    
+                                    <a href="dang-ky" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Đăng ký</a>  
                                 @endauth
-                            
-                        @endif</span>
+                                 
+                        @endif
                         </div>
                      </div>
                   </div>
@@ -125,7 +134,7 @@
                      <div class="col-md-4">
                         <ul class="right_icon d_none1">
                            <li>
-                              <a href="/cart" class="mr-4">
+                              <a href="/gio-hang" class="mr-4">
                                  <i class="fas fa-shopping-cart text-larger position-relative" style="font-size: 26px; color:orange" title="Giỏ hàng"></i>
                                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white amount-cart" style="transform: translate(-50%, -50%) !important;">{{$qty}}</span>
                               </a> 
@@ -139,12 +148,9 @@
                               <a class="ml-3" href="/yeu-thich" title="Yêu thích" >
                                  <i class="fas fa-heart" style="font-size: 26px;color: red;" ></i>
                                  @if (!(Auth::user()))
-
-                                     
-                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white" style="transform: translate(-50%, -50%) !important;">0</span>
+                                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white" style="transform: translate(-50%, -50%) !important;">0</span>
                                  @else
-                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white amount-wishlist" style="transform: translate(-50%, -50%) !important;">{{count($amount)}}</span>
-                                     
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white amount-wishlist" style="transform: translate(-50%, -50%) !important;">{{count($amount)}}</span>    
                                  @endif
 
                               </a>
