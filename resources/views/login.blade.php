@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mt-3">
             <div class="card">
-                <div class="card-header ">Đăng nhập</div>
+                <div class="card-header h6 text-center bg-warning ">Đăng nhập</div>
                 @if (session('loi'))
                     <div class="alert alert-danger mt-3 mx-3">{{session('loi')}}</div>
                 @endif

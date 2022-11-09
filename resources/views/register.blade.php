@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mt-4">
             <div class="card">
-                <div class="card-header text-center">Đăng ký tài khoản</div>
+                <div class="card-header h6 text-center bg-warning">Đăng ký tài khoản</div>
 
                 <div class="card-body">
                     <form method="POST" action="/dang-ky" enctype="multipart/form-data">
@@ -56,7 +56,7 @@
                             <label for="date" class="col-md-4 col-form-label text-md-end">Ngày sinh:</label>
 
                             <div class="col-md-6">
-                                <input id="date" type="date" class="form-control @error('date') is-invalid @enderror" name="birthday" value="{{ old('date') }}" required autocomplete="date">
+                                <input id="date" type="date" class="form-control @error('date') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="date">
 
                                 @error('date')
                                     <span class="invalid-feedback" role="alert">
@@ -70,7 +70,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Nam">
+                                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Nam" >
                                     <label class="form-check-label" for="inlineRadio1">Nam</label>
                                   </div>
                                   <div class="form-check form-check-inline">
@@ -104,7 +104,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">Địa chỉ:</label>
 
                             <div class="col-md-6">
-                                <textarea id="address" type="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address"></textarea>
+                                <textarea id="address" type="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">{{ old('address') }}</textarea>
 
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
@@ -118,7 +118,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">Ảnh đại điện:</label>
 
                             <div class="col-md-6">
-                                <input id="file" type="file" class="form-control @error('file') is-invalid @enderror" name="file" value="{{ old('file') }}" required autocomplete="file">
+                                <input id="file" type="file" class="form-control @error('file') is-invalid @enderror" name="file" value="{{ old('file') }}" >
 
                                 @error('file')
                                     <span class="invalid-feedback" role="alert">
@@ -132,7 +132,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">Mật khẩu:</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{old('password')}}"> 
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -145,14 +145,14 @@
                         <div class="row mb-3">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Xác thực mật khẩu:</label>
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"value="{{old('password_confirmation')}}">
                             </div>
                         </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4 text-center">
                                 <button type="submit" class="btn btn-success">
-                                    Đăng ký
+                                    Đăng ký tài khoản
                                 </button>
                             </div>
                         </div>

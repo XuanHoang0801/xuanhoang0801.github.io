@@ -85,9 +85,10 @@ class OrderAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $order= order::find($id);
+        $order= order::with('statuses')->find($id);
         $order->status_id=$request->status;
         $order->save();
+        $order= order::with('statuses')->find($id);
         if($request->status == 4){
 
             $product = product::find($order->product_id);
@@ -95,6 +96,12 @@ class OrderAdminController extends Controller
             $product->buy++;
             $product->save();
         }
+
+        $notify = new Notify();
+        $notify->body = 'Đơn hàng <span class="text-primary">'.$order->order_id.'</span> của bạn đã cập nhật trạng thái thành <span class="text-success">'.$order->statuses->name.'</span>';
+        $notify->user_id = $order->user_id;
+        $notify->order_id = $order->id;
+        $notify->save();
         return redirect('/admin/quan-ly-don-hang/'.$id.'')->with(['thongbao'=>'Đã cập nhật đơn hàng!']);
     }
 
@@ -111,7 +118,7 @@ class OrderAdminController extends Controller
 
     public function garbage(Request $request)
     {
-        $order = order::onlyTrashed()->get();
+        $order = order::onlyTrashed()->orderBy('id','DESC')->get();
         $notify = Notify::orderBy('id', 'DESC')->get();
         $amount = Notify::where('status',0)->get();
         $url = $request->url();

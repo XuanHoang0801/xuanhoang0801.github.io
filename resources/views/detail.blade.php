@@ -24,7 +24,12 @@
                     <span>Lượt xem: </span><span class="text-success">{{$product->view}} <i class="fas fa-eye text-success"></i></span></br>
 
                     <button type="button" class="btn btn-warning mt-3 add">Thêm vào giỏ hàng</button>
+                    @if (Auth::check())
+                        
                     <button type="button" class="btn btn-danger mt-3 ml-3 tim">Thêm vào yêu thích</button>
+                    @else
+                        
+                    @endif
                     <div class="success" style="position: fixed;right: 0;top: 0;"> 
                         <div class="alert"></div>
                      </div>

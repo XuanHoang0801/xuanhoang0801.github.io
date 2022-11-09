@@ -201,6 +201,30 @@ class AjaxController extends Controller
         $notify->status = 1;
         $notify->save();
     }
+    public function deleteNotify(Request $request)
+    {
+       $id = $request->id;
+        Notify::find($id)->delete();
+       $notify = Notify::where('user_id',$request->user()->id)->where('status', 0)->get();
+       
+       $notify = count($notify);
+       $check = Notify::where('user_id',$request->user()->id)->get();
+       if (count($check) == 0) 
+       {
+            return response()->json([
+                'notify'=>$notify,
+                'css' => 'display:block',
+                'success' => 'Không có thông báo nào!',
+            ]);
+       }
+       else
+       {
+           return response()->json([
+            'notify'=>$notify,
+           ]);
+       }
+
+    }
 
     public function likeProduct(Request $request)
     {

@@ -29,27 +29,24 @@ use App\Http\Controllers\WishlistController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/admin2',function()
-{
-    return view('admin2.index');
-});
 Route::get('/dang-ky',[CustomerController::class,'register']);
 Route::post('/dang-ky',[CustomerController::class,'postRegister']);
 Route::get('/dang-nhap',[CustomerController::class,'login']);
 Route::post('/dang-nhap',[CustomerController::class,'postlogin']);
+Route::post('/dang-xuat',[CustomerController::class,'Logout'])->name('customer.logout');
 Route::get('/',[CustomerController::class,'index'])->name('index');
 Route::get('thong-tin',[CustomerController::class,'profile']);
 Route::get('doi-mat-khau',[CustomerController::class,'changePassword'])->middleware('login');
 Route::post('doi-mat-khau',[CustomerController::class,'changePasswordPost'])->middleware('login');
 Route::get('quen-mat-khau',[CustomerController::class,'emailPassword']);
-Route::get('quen-mat-khau/{token}',[CustomerController::class,'resetPassword']);
+Route::post('quen-mat-khau',[CustomerController::class,'sendMail'])->name('send.reset');
+Route::get('quen-mat-khau/{token}',[CustomerController::class,'resetPassword'])->name('reset.password.get');
 Route::post('/update-user',[CustomerController::class,'updateUser']);
 //Sản phẩm
 Route::get('/san-pham',[CustomerController::class,'list'])->name('san-pham');
 Route::get('/san-pham/{id}',[CustomerController::class,'detail']);
 Route::get('/tim-kiem',[CustomerController::class,'search']);
 Route::get('/comment/{id}',[CustomerController::class,'destroy']);
-
 //bài viết
 Route::get('/bai-viet',[CustomerController::class,'listpost'])->name('post');
 Route::get('/bai-viet/{id}',[CustomerController::class,'detailpost']);
@@ -74,7 +71,11 @@ Route::post('/ajax/notify-status',[AjaxController::class, 'UpdateNotify']);
 Route::post('/ajax/product-like',[AjaxController::class, 'likeProduct']);
 Route::post('/ajax/post-like',[AjaxController::class, 'likePost']);
 Route::post('/ajax/check-pass',[AjaxController::class, 'checkPass']);
-
+Route::post('/ajax/delete-notify',[AjaxController::class, 'deleteNotify']);
+//donhang
+Route::get('/don-hang/{id}',[CustomerController::class,'detaiBill'])->middleware('login');
+Route::get('/da-giao-hang',[CustomerController::class,'DaGiao'])->middleware('login');
+//resource
 Route::resource('/yeu-thich',WishlistController::class)->middleware('login');
 Route::resource('/gio-hang',ShoppingCartController::class)->middleware('login');
 Route::resource('/don-hang',OrderController::class)->middleware('login');
@@ -82,12 +83,10 @@ Route::resource('/comment',CommentController::class);
 
 //admin
 Route::group(['prefix'=>'/admin'], function(){
-
     Auth::routes();
 });
 
 Route::group(['prefix'=>'/admin','middleware'=>['checkUser']], function(){
-
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/quan-ly-san-pham/da-xoa',[ProductController::class,'garbage'])->name('quan-ly-san-pham.da-xoa');
     Route::get('/quan-ly-san-pham/khoi-phuc/{id}',[ProductController::class,'khoiphuc']);
@@ -97,7 +96,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['checkUser']], function(){
     Route::get('/quan-ly-bai-viet/xoa/{id}',[PostController::class,'xoa']);
     Route::get('/quan-ly-bai-viet/gioi-thieu',[PostController::class,'gioithieu']);
     Route::get('/quan-ly-don-hang/don-huy',[OrderAdminController::class,'garbage'])->name('quan-ly-don-hang.don-huy');
-    
+    //resource
     Route::resource('/danh-muc', CategoriesController::class);
     Route::resource('/quan-ly-san-pham', ProductController::class);
     Route::resource('/nha-san-xuat', NsxController::class);

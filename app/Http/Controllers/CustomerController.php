@@ -2,25 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\nsx;
 use App\Models\card;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\order;
+use App\Models\Notify;
 use App\Models\Comment;
 use App\Models\product;
+
 use App\Models\producer;
 use App\Models\Wishlist;
 
 use App\Models\Categories;
-use App\Models\Like;
-
+use Illuminate\Support\Str;
 use function Ramsey\Uuid\v1;
-
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -44,15 +50,17 @@ class CustomerController extends Controller
     public function postRegister(Request $request)
     {
         $this->validate($request,[
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:255','unique:users,name'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+           
         ],[
             'name.required'=> ' Tên đăng nhập không được để trống!',
             'name.string'=> 'Chỉ được nhập ký tự!',
             'email.required'=> 'Email của bạn không được để trống!',
             'email.email'=> 'Email không đúng định dạng',
-            'email.unique'=>'Tài khoản này đã tồn tại!',
+            'email.unique'=>'Email này đã tồn tại!',
+            'name.unique'=>'Tên đăng nhập này đã tồn tại!',
             'password.required'=> 'Bạn chưa nhập mật khẩu!',
             'password.min'=>'Mật khẩu của bạn phải từ 6 ký tự trở lên!',
             'password.confirmed' => 'Mật khẩu không trùng khớp!',
@@ -84,9 +92,8 @@ class CustomerController extends Controller
         $qty = Cart::count();
         $url = $request->url();
         if(Auth::check()){
-
-            $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('login',compact('qty','amount','url'));
+            Auth::logout();
+            return redirect('/dang-nhap');
         }
         else{
             return view('login',compact('qty','url'));
@@ -105,12 +112,20 @@ class CustomerController extends Controller
         }
     }
 
+    public function Logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/dang-nhap');
+    }
+
     public function profile(Request $request)
     {
         $qty = Cart::count();
         $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-        return view('profile',compact('qty','amount','url'));
+        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        return view('profile',compact('qty','amount','url','notify','amount_notify'));
         
     }
 
@@ -119,7 +134,9 @@ class CustomerController extends Controller
         $qty  = Cart::count();
         $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-        return view('change_password',compact('qty','amount','url'));
+        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        return view('change_password',compact('qty','amount','url','notify','amount_notify'));
     }
     public function changePasswordPost(Request $request)
     {
@@ -147,10 +164,30 @@ class CustomerController extends Controller
 
     public function emailPassword(Request $request)
     {
-       $qty  = Cart::count();
-       $url = $request->url();
-
+        $qty  = Cart::count();
+        $url = $request->url();
         return view('email',compact('qty','url'));
+    }
+    public function sendMail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+        ]);
+
+        $token = Str::random(64);
+
+        DB::table('password_resets')->insert([
+            'email' => $request->email, 
+            'token' => $token, 
+            'created_at' => Carbon::now()
+          ]);
+
+        Mail::send('email.forgot', ['token' => $token,'email'=>$request->email], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Reset Password');
+        });
+
+        return back()->with('status', 'Kiểm tra email của bạn và ấn vào link để tiếp tục!');
     }
     
     public function resetPassword(Request $request)
@@ -162,7 +199,7 @@ class CustomerController extends Controller
         return view('reset',compact('qty','url','token','email'));
     }
 
-    public function updateUser(Request $request)
+    public function updateUser(UserRequest $request)
     {
         $fullname = $request->fullname;
         $gender = $request->gender;
@@ -195,10 +232,12 @@ class CustomerController extends Controller
        $url = $request->url();
        if(!(Auth::user())){
            return view('index',compact('product','qty','url'));
-       }
-       else{
-           $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-           return view('index',compact('product','qty','amount','url'));
+        }
+        else{
+            $amount = Wishlist::where('user_id',Auth::user()->id)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+           return view('index',compact('product','qty','amount','url','notify','amount_notify'));
        }
     }
 
@@ -215,7 +254,9 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('product',compact('fillter','phone','laptop','qty','amount','producer','url'));
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            return view('product',compact('fillter','phone','laptop','qty','amount','producer','url','notify','amount_notify'));
         }
     }
 
@@ -235,7 +276,9 @@ class CustomerController extends Controller
         else{
             $checklike = Like::where('product_id',$id)->where('user_id', Auth::user()->id)->get();
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('detail', compact('product','comment','qty','amount','like','checklike','url'));
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            return view('detail', compact('product','comment','qty','amount','like','checklike','url','notify','amount_notify'));
         }
     }
     public function card(Request $request,$id)
@@ -268,7 +311,9 @@ class CustomerController extends Controller
             }
             $qty = Cart::count();
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('order',compact('cart','qty','amount','url'));
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            return view('order',compact('cart','qty','amount','url','notify','amount_notify'));
         }
     }
     
@@ -281,6 +326,30 @@ class CustomerController extends Controller
         return view('bill',compact('qty','order','amount'));
     }
 
+    public function DaGiao(Request $request)
+    {
+        $user=Auth::user()->id;
+        $qty = Cart::count();
+        $order=order::with('products','statuses','users','cards')->where(['user_id'=>$user,'status_id'=>4])->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $url = $request->url();
+        $amount = Wishlist::where('user_id',Auth::user()->id)->get();
+        return view('delivered',compact('qty','order','amount','amount_notify','notify','url'));
+    }
+
+    public function detaiBill(Request $request, $id)
+    {
+        $user=Auth::user()->id;
+        $qty = Cart::count();
+        $order=order::with('products','statuses','users','cards')->find($id);
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $url = $request->url();
+        $amount = Wishlist::where('user_id',Auth::user()->id)->get();
+        return view('bill_detail',compact('qty','order','amount','amount_notify','notify','url'));
+    }
+
     public function listpost( Request $request)
     {
         $post = Post::orderBy('id','DESC')->get();
@@ -291,7 +360,9 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('post',compact('post','qty','amount','url'));
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            return view('post',compact('post','qty','amount','url','notify','amount_notify'));
         }
     }
 
@@ -311,7 +382,9 @@ class CustomerController extends Controller
         else{
             $checklike = Like::where('post_id',$id)->where('user_id', Auth::user()->id)->get();
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('post-detail',compact('post','qty','comment','amount','like','checklike','url'));
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            return view('post-detail',compact('post','qty','comment','amount','like','checklike','url','notify','amount_notify'));
         }
     }
 
@@ -325,7 +398,9 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('gioithieu',compact('post','qty','amount','url'));
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            return view('gioithieu',compact('post','qty','amount','url','notify','amount_notify'));
         }
     }
 
@@ -363,7 +438,9 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            return view('search',compact('key','qty','product','amount','url'));
+            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            return view('search',compact('key','qty','product','amount','url','notify','amount_notify'));
         }
     }
 }

@@ -51,7 +51,7 @@
                         <p class="font-weight-bold mb-0 text-xs">{{number_format($item->products->price)}} &#8363</p> 
                       </td> --}}
                       <td class="text-center">
-                        <p class="font-weight-bold mb-0 text-xs">{{$item->users->name}}</p> 
+                        <p class="font-weight-bold mb-0 text-xs">{{$item->users->fullname}}</p> 
                       </td>
                       <td class="text-center">
                         <p class="font-weight-bold mb-0 text-xs text-danger">{{number_format($item->total)}} &#8363</p> 
@@ -66,7 +66,7 @@
                         @if ($item->status_id == 4)
                            N/A
                         @else
-                        <a href="admin/quan-ly-don-hang/{{$item->id}}" class="btn btn-success "><i class="fas fa-eye"></i></a>
+                        {{-- <a href="admin/quan-ly-don-hang/{{$item->id}}" class="btn btn-success "><i class="fas fa-eye"></i></a> --}}
                         @endif
                         <div style="height: 100%;width:5px"></div>
                         <form action="admin/quan-ly-don-hang/{{$item->id}}" method="post">
@@ -79,11 +79,13 @@
                     @endforeach
                 </tbody>
               </table>
+              <div class="card-header pb-0">
+                <a href="admin/quan-ly-don-hang" class="btn btn-danger btn-sm">Trở về </a>
+              </div>
               <div class="d-flex justify-content-center">
               {{-- {{$order->links('paginate')}} --}}
             </div>
 
-            <a href="admin/quan-ly-don-hang" class="btn btn-danger btn-sm">Trở về </a>
             </div>
           </div>
         </div>

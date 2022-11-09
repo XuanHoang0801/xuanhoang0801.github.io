@@ -54,7 +54,7 @@
                     <div class="user">
                         <div class="form-group mb-3 pt-3">
                             <label for="" class="form-label ">Khách hàng:</label>
-                            <span >{{$order->users->name}}</span>
+                            <span >{{$order->users->fullname}}</span>
                         </div>
                 
                         <div class="form-group mb-3 pt-3">

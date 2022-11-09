@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notify;
 use App\Models\product;
 use App\Models\Wishlist;
-use Illuminate\Http\Request;
 // use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 // use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -26,7 +27,9 @@ class ShoppingCartController extends Controller
         $qty  = Cart::count();
         $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->orderby('id','DESC')->get();
-        return view('shoppingcart',compact('card','qty','amount','url'));
+        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        return view('shoppingcart',compact('card','qty','amount','url','notify','amount_notify'));
     }
 
     /**

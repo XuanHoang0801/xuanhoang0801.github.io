@@ -23,7 +23,7 @@
                     <tbody>
                       <tr>
                         
-                        <td>{{Auth::user()->name}}</td>
+                        <td>{{Auth::user()->fullname}}</td>
                         <td>{{Auth::user()->email}}</td>
                         <td>
                             <input type="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Nhập số điện thoại của bạn..." value="{{Auth::user()->phone}}">

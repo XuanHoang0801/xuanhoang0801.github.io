@@ -2,6 +2,11 @@
 @section('title', 'Bài viết')
 @section('content')
 <div class="container">
+  {{-- <div class="d-flex justify-content-end">
+    <input type="text" class="form-control col-4 mt-2">
+    <i class="fas fa-search bg-warning p-3 mt-2"></i>
+  </div> --}}
+  
     <div class="row justify-content-center">
         <div class="col-md-12 mt-3">
             @foreach ($post as $item)

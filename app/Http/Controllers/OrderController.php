@@ -26,7 +26,9 @@ class OrderController extends Controller
         $url = $request->url();
         $order=order::with('products','statuses','users','cards')->where('user_id',$user)->get();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-        return view('bill',compact('qty', 'order','amount','url'));
+        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        return view('bill',compact('qty', 'order','amount','url','notify','amount_notify'));
     }
 
     /**
@@ -70,7 +72,7 @@ class OrderController extends Controller
             $order->save();
 
             $notify = new Notify();
-            $notify->body = 'Có đơn hàng '.$order ->products->name.' mới!';
+            $notify->body = 'Có đơn hàng '.$order ->products->name.' mới từ khách hàng '.Auth::user()->fullname.'!';
             $notify->order_id= $order->id;
             $notify->save();
         }

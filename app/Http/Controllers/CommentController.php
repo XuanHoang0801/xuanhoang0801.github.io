@@ -36,6 +36,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        
             $comment = new Comment();
             $comment->product_id=$request->id;
             $comment->name=$request->user()->name;

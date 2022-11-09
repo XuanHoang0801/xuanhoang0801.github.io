@@ -58,27 +58,67 @@
                            <li> <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i>
                               </a>
                            </li>
-                           <li> <a href="#"><i class="fa fa-twitter"></i></a></li>
-                           <li> <a href="#"> <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                           <li> <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+                           <li> <a href="#"><i class="fas fa-twitter"></i></a></li>
+                           <li> <a href="#"> <i class="fas fa-linkedin" aria-hidden="true"></i></a></li>
+                           <li> <a href="#"><i class="fas fa-instagram" aria-hidden="true"></i>
                               </a>
                            </li>
                         </ul>
                      </div>
                      <div class="col-md-4">
                         <div class="se_fonr1">
-                              <i class="fas fa-bell mx-3 mt-1"></i>
-                           <form action="#" >
-                              <div class="select-box">
-                                 <label for="select-box1" class="label select-box1"><span class="label-desc">English</span> </label>
-                                 <select id="select-box1" class="select">
-                                    <option value="Choice 1">English</option>
-                                    <option value="Choice 1">Falkla</option>
-                                    <option value="Choice 2">Germa</option>
-                                    <option value="Choice 3">Neverl</option>
-                                 </select>
-                              </div>
-                           </form>
+                           @if (Auth::check())
+                               
+                           <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                              <a href="" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-bell cursor-pointer"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white amount-notify">{{count($amount_notify)}}</span>
+                              </a>
+                              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                 <li class="dropdown-item border-radius-md text-xxs  text-secondary empty"></li>
+                                 @if ($notify->isEmpty())
+                                     <li class="mb-2 dropdown-item border-radius-md  text-secondary">Không có thông báo nào!</li>
+                                 @else
+                                     
+                                    @foreach ($notify as $notify)
+                                       
+                                    <li class="mb-2 notify" data-id="{{$notify->id}}" style="
+                                    <?php
+                                       if ($notify->status == 0) {
+                                          echo 'background: #9999';
+                                       }
+                                       else {
+                                          null;
+                                       }
+                                       ?>
+                                    ">
+                                       <a class="dropdown-item border-radius-md" href="">
+                                          <div class="d-flex py-1">
+                                             {{-- <div class="my-auto">
+                                             <img src="ssets/img/{{}}" class="avatar avatar-sm  me-3 ">
+                                             </div> --}}
+                                             <div class="d-flex flex-column justify-content-center" >
+                                             <h6 class="font-weight-normal mb-1">
+                                                {!!$notify->body!!}
+                                             </h6>
+                                             <div class=" text-secondary mb-0 ">
+                                                <i class="fa fa-clock me-1"></i>
+                                                <span class="text-xs">{{$notify->created_at->format('H:i:s - d-m-Y ')}}</span>
+                                             </div>
+                                             </div>
+                                          </div>
+                                          <div class="d-flex justify-content-end ">
+                                          </a>
+                                             <div class=" mr-3 text-danger  delete-notify" style="cursor: pointer;">Xóa</div>
+                                          </div>
+                                    </li>
+                                    @endforeach
+                                 @endif
+                                
+                              </ul>
+                           </li>
+                           @endif
+                           
                            <span class="time_o">  
                             @if (Route::has('login'))
                             
@@ -92,6 +132,9 @@
                                        <a class="dropdown-item"  href="/thong-tin">Thông tin </a>
                                     </li>
                                     <li>
+                                       <a class="dropdown-item"  href="da-giao-hang">Đơn hàng đã giao</a>
+                                    </li>
+                                    <li>
                                        <a class="dropdown-item"  href="/doi-mat-khau">Đổi mật khẩu</a>
                                     </li>
                                     <li>
@@ -101,7 +144,7 @@
                                         {{ __('Logout') }}
                                        </a>
 
-                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                       <form id="logout-form" action="{{ route('customer.logout') }}" method="POST" class="d-none">
                                           @csrf
                                        </form>
                                     </li>
@@ -330,6 +373,25 @@
       <!-- sidebar -->
       {{-- <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> --}}
       {{-- <script src="assets/js/custom.js"></script> --}}
+   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+      $(".delete-notify").click(function(){
+         var id = $(this).parents('.notify').attr('data-id');
+         $(this).parents('.notify').remove();
+         $.post("ajax/delete-notify",
+            {
+                _token: '{{ csrf_token() }}',
+                id:id,
+            },
+            function(data){
+               $('.amount-notify').html(data['notify']);
+               $('.empty').html(data['success']);
+            }); 
+
+      });
+    });
+</script>
    </body>
 </html>
 

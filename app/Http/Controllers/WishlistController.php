@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notify;
 use App\Models\Wishlist;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class WishlistController extends Controller
 {
@@ -21,7 +22,9 @@ class WishlistController extends Controller
         $url = $request->url();
         $wishlist = Wishlist::with('products')->where('user_id', $user)->get();
         $amount = Wishlist::with('products')->where('user_id', $user)->get();
-        return view('wishlist',compact('qty', 'wishlist','amount','url'));
+        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        return view('wishlist',compact('qty', 'wishlist','amount','url','notify','amount_notify'));
     }
 
     /**

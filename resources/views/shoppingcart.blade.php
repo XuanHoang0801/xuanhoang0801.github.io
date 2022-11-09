@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12 mt-3">
             <div class="card">
-                <div class="card-header ">Giỏ hàng của bạn</div>
+                <h3 class="card-header text-center bg-warning ">Giỏ hàng của bạn</h3>
                 @if (session('thongbao'))
                     <div class="alert alert-success mt-3 mx-3">{{session('thongbao')}}</div>
                 @endif
