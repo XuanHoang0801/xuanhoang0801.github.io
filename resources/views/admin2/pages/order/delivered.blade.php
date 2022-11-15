@@ -1,16 +1,13 @@
 @extends('admin2.index')
-@section('title','Quản Lý Đơn Hàng')
-@section('url','/ quan-ly-don-hang')
+@section('title','Đơn Hàng Đã Giao')
+@section('url','/ quan-ly-don-hang / da-giao')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <h3>Quản lý đơn hàng</h3>
-            <div class="btn btn-success btn-sm col-2 delivered">Đơn hàng đã giao</div>
-            <div class="btn btn-warning btn-sm col-2 garde">Đơn hàng bị hủy</div>
-
+            <h3>Đơn hàng đã giao</h3>
           </div>
         
           <div class="card-body px-0 pt-0 pb-2">
@@ -34,9 +31,7 @@
                 <tbody>
                     <?php $stt=1 ?>
                     @foreach ($order as $item)
-                    @if ($item->status_id ==4)
-                        
-                    @else
+                    
                         
                     <tr>
                       <td>
@@ -51,12 +46,6 @@
                       <td>
                         <p class="font-weight-bold mb-0 text-xs">{{$item->products->name}}</p> 
                       </td>
-                      {{-- <td class="text-center">
-                        <p class="font-weight-bold mb-0 text-xs">{{$item->amount}}</p> 
-                      </td>
-                      <td class="text-center">
-                        <p class="font-weight-bold mb-0 text-xs">{{number_format($item->products->price)}} &#8363</p> 
-                      </td> --}}
                       <td class="text-center">
                         <p class="font-weight-bold mb-0 text-xs">{{$item->users->name}}</p> 
                       </td>
@@ -70,11 +59,9 @@
                         <p class="font-weight-bold mb-0 text-xs" style="color:{{$item->statuses->color}}">{{$item->statuses->name}}</p> 
                       </td>
                       <td class=" d-flex justify-content-around text-sm">
-                        @if ($item->status_id == 4)
-                          N/A
-                        @else
+                       
                         <a href="admin/quan-ly-don-hang/{{$item->id}}" class="btn btn-primary" title="Chi tiết"><i class="fas fa-eye"></i></a>
-                        @endif
+                       
                         <div style="height: 100%;width:5px"></div>
                         <form action="admin/quan-ly-don-hang/{{$item->id}}" method="post">
                           @csrf
@@ -83,14 +70,15 @@
                         </form>
                       </td>
                     </tr>
-                    @endif
+                  
 
                     @endforeach
                 </tbody>
               </table>
               <div class="d-flex justify-content-center">
-              {{$order->links('paginate')}}
+                {{-- {{$order->links('paginate')}} --}}
               </div>
+              <a href="/admin/quan-ly-don-hang" class="btn btn-danger">Trở về</a>
             </div>
           </div>
         </div>
@@ -101,26 +89,5 @@
         <div class="alert alert-success mt-3">{{session('thongbao')}}</div>
       </div>
     @endif
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script>
-   $(document).ready(function()
-   {
-      $('.alert').delay(1000).hide(300);
-        setTimeout(function() 
-        {
-          $(".alert").remove();
-        }, 
-      2000);
 
-      $('.garde').click(function()
-      {
-        window.location.href = "/admin/quan-ly-don-hang/don-huy";
-      });
-
-      $('.delivered').click(function()
-      {
-        window.location.href = "/admin/quan-ly-don-hang/da-giao";
-      });
-    });
-</script>
 @endsection

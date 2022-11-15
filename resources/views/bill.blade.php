@@ -50,7 +50,7 @@
                             <th scope="col">Giá</th>
                             <th scope="col">SL</th>
                             <th scope="col">Tổng tiền</th>
-                            <th scope="col">Ngày lập</th>
+                            <th scope="col">Ngày đặt</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Hành động</th>
                         </tr>

@@ -55,7 +55,7 @@
                      </div>
                      <div class="col-md-4">
                         <ul class="social_icon">
-                           <li> <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i>
+                           <li> <a href="#"><i class="fas fa-facebook" aria-hidden="true"></i>
                               </a>
                            </li>
                            <li> <a href="#"><i class="fas fa-twitter"></i></a></li>
@@ -92,27 +92,25 @@
                                        }
                                        ?>
                                     ">
-                                       <a class="dropdown-item border-radius-md" href="">
+                                       <a class="dropdown-item border-radius-md" href="don-hang/{{$notify->order_id}}">
                                           <div class="d-flex py-1">
-                                             {{-- <div class="my-auto">
-                                             <img src="ssets/img/{{}}" class="avatar avatar-sm  me-3 ">
-                                             </div> --}}
+                                             
                                              <div class="d-flex flex-column justify-content-center" >
-                                             <h6 class="font-weight-normal mb-1">
-                                                {!!$notify->body!!}
-                                             </h6>
-                                             <div class=" text-secondary mb-0 ">
-                                                <i class="fa fa-clock me-1"></i>
-                                                <span class="text-xs">{{$notify->created_at->format('H:i:s - d-m-Y ')}}</span>
+                                               <h6 class="text-sm font-weight-normal mb-1">
+                                                 <span class=" text-wrap" >{!!$notify->body!!}</span>
+                                               </h6>
+                                               <div class="text-xxs text-secondary mb-0 ">
+                                                 <i class="fa fa-clock me-1"></i>
+                                                 <span class="text-xxs">{{$notify->created_at->format('H:i:s - d-m-Y ')}}</span>
+                                               </div>
                                              </div>
-                                             </div>
-                                          </div>
-                                          <div class="d-flex justify-content-end ">
+                                           </div>
                                           </a>
-                                             <div class=" mr-3 text-danger  delete-notify" style="cursor: pointer;">Xóa</div>
+                                          <div class="d-flex justify-content-end ">
+                                             <div class=" mr-3 text-danger text-xxs delete-notify" style="cursor: pointer;">Xóa</div>
                                           </div>
-                                    </li>
-                                    @endforeach
+                                       </li>
+                                       @endforeach
                                  @endif
                                 
                               </ul>
@@ -124,8 +122,13 @@
                             
                                 @auth
                                 <li class="dropdown">
-                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" title="{{Auth::user()->name}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{-- {{ Auth::user()->name }} --}}
+                                    <div class="avatar avatar-xs rounded-circle">
+                                          <img src="/assets/img/{{Auth::user()->image}}" alt="{{Auth::user()->name}}">
+
+                                    </div>
+                                    {{-- <img class="avatar" src="/assets/img/{{Auth::user()->image}}" alt=""> --}}
                                 </a>
                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="padding: 0px">
                                     <li>
@@ -390,6 +393,19 @@
             }); 
 
       });
+
+
+      $('.notify').click(function(){
+      var id= $(this).attr('data-id');
+      $.post("/ajax/notify-status",
+        {
+          _token: '{{ csrf_token() }}',
+          id:id,
+        },
+        function(data){
+          $('.success').html(data['success']);
+      }); 
+    });
     });
 </script>
    </body>

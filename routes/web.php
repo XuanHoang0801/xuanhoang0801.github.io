@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProducerController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NsxController;
 use App\Http\Controllers\OrderAdminController;
@@ -60,7 +61,7 @@ Route::get('/cart/delete/{id}', [AjaxController::class,'delete']);
 //ajax
 Route::post('/ajax/add-cart',[ShoppingCartController::class, 'store']);
 Route::post('/ajax/add-cart-index',[ShoppingCartController::class, 'add']);
-Route::post('/ajax/add-wishlist',[WishlistController::class, 'store']);
+Route::post('/ajax/add-wishlist',[WishlistController::class, 'store']) ;
 Route::get('/ajax/wishlist-delete/{id}',[WishlistController::class, 'destroy']);
 Route::post('/ajax/cart-update',[ShoppingCartController::class, 'amount']);
 Route::get('/ajax/cart-delete/{id}',[ShoppingCartController::class, 'destroy']);
@@ -72,6 +73,7 @@ Route::post('/ajax/product-like',[AjaxController::class, 'likeProduct']);
 Route::post('/ajax/post-like',[AjaxController::class, 'likePost']);
 Route::post('/ajax/check-pass',[AjaxController::class, 'checkPass']);
 Route::post('/ajax/delete-notify',[AjaxController::class, 'deleteNotify']);
+Route::post('/ajax/ratting',[AjaxController::class, 'Ratting']);
 //donhang
 Route::get('/don-hang/{id}',[CustomerController::class,'detaiBill'])->middleware('login');
 Route::get('/da-giao-hang',[CustomerController::class,'DaGiao'])->middleware('login');
@@ -95,13 +97,16 @@ Route::group(['prefix'=>'/admin','middleware'=>['checkUser']], function(){
     Route::get('/quan-ly-bai-viet/khoi-phuc/{id}',[PostController::class,'khoiphuc']);
     Route::get('/quan-ly-bai-viet/xoa/{id}',[PostController::class,'xoa']);
     Route::get('/quan-ly-bai-viet/gioi-thieu',[PostController::class,'gioithieu']);
+    Route::get('/quan-ly-don-hang/da-giao',[OrderAdminController::class,'delivered'])->name('quan-ly-don-hang.da-giao');
     Route::get('/quan-ly-don-hang/don-huy',[OrderAdminController::class,'garbage'])->name('quan-ly-don-hang.don-huy');
+    Route::delete('/quan-ly-don-hang/xvv/{id}',[OrderAdminController::class,'force'])->name('quan-ly-don-hang.xoa');
     //resource
     Route::resource('/danh-muc', CategoriesController::class);
     Route::resource('/quan-ly-san-pham', ProductController::class);
     Route::resource('/nha-san-xuat', NsxController::class);
     Route::resource('/quan-ly-bai-viet', PostController::class);
     Route::resource('/quan-ly-don-hang',OrderAdminController::class);
+    Route::resource('/khach-hang',ClientController::class);
     Route::resource('/trang-thai', StatusController::class);
 });
 

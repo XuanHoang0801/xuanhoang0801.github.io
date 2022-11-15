@@ -943,9 +943,64 @@ position: absolute;
      background: #f2c119;
 }
 
+/* avatar */
+.avatar {
+     color: #fff;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 1rem;
+     border-radius: 0.75rem;
+     height: 30px;
+     width: 30px;
+     transition: all .2s ease-in-out;
+   }
+   .avatar-xs {
+     width: 24px !important;
+     height: 24px !important;
+     font-size: 0.75rem;
+   }
+   .avatar img {
+     width: 100%;
+   }
+
+   .text-wrap {
+     white-space: normal !important;
+   }
+   .text-xxs {
+     font-size: 0.65rem !important;
+   }
+
+   .rounded-circle,
+.avatar.rounded-circle img {
+  border-radius: 50% !important;
+}
+
 
 /** about page **/
 
+/* star */
+.star{
+     font-size: 30px;
+     cursor: pointer;
+}
+.rat{
+     color: orange;
+}
+.star:hover{
+     color: #DBA400;
+
+}
+.fa-star ,.fa-star-half-alt{
+     color: #DBA400;
+
+}
+
+.star-click{
+     color: #DBA400 ;
+}
+
+/* end-star */
 .project_page .blue_bg .titlepage h2 {
      color: #fff;
 }

@@ -38,7 +38,8 @@
       <div class="row">
          <div class="product_main">
             @foreach ($phone as $p)
-            <div class="project_box" data-id="{{$p->id}}">
+            
+            <div class="project_box" data-id="{{$p->id}}" title="{{$p->name}}">
                <a href="/san-pham/{{$p->id}}">
                   <div class="dark_white_bg" >
                      <img  src="assets/img/{{$p->image}}" alt="#" width="500">
@@ -62,7 +63,7 @@
       <div class="row">
          <div class="product_main">
          @foreach ($laptop as $l)
-         <div class="project_box" data-id="{{$l->id}}">
+         <div class="project_box" data-id="{{$l->id}}" title="{{$l->name}}">
             <a href="/san-pham/{{$l->id}}">
                 <div class="dark_white_bg" >
                     <img  src="assets/img/{{$l->image}}" alt="#" width="500"/>
@@ -76,7 +77,6 @@
             <div class="success" style="position: fixed;right: 0;top: 0;"> 
                <div class="alert"  ></div>
             </div>
-
          </div>             
          @endforeach
          

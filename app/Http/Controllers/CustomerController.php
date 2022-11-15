@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
+use App\Models\Ratting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -123,8 +124,8 @@ class CustomerController extends Controller
         $qty = Cart::count();
         $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
         return view('profile',compact('qty','amount','url','notify','amount_notify'));
         
     }
@@ -134,8 +135,8 @@ class CustomerController extends Controller
         $qty  = Cart::count();
         $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
         return view('change_password',compact('qty','amount','url','notify','amount_notify'));
     }
     public function changePasswordPost(Request $request)
@@ -235,8 +236,8 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
            return view('index',compact('product','qty','amount','url','notify','amount_notify'));
        }
     }
@@ -254,8 +255,8 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
             return view('product',compact('fillter','phone','laptop','qty','amount','producer','url','notify','amount_notify'));
         }
     }
@@ -269,16 +270,22 @@ class CustomerController extends Controller
         $url = $request->url();
         $comment= Comment::where('product_id',$id)->get();
         $like = Like::where('product_id',$id)->get();
-        $qty=Cart::count();
+        $qty = Cart::count();
+
+        $level_1 = Ratting::where('product_id',$id)->where('level',1)->get();
+        $level_2 = Ratting::where('product_id',$id)->where('level',2)->get();
+        $level_3 = Ratting::where('product_id',$id)->where('level',3)->get();
+        $level_4 = Ratting::where('product_id',$id)->where('level',4)->get();
         if(!(Auth::user())){
-            return view('detail', compact('product','comment','qty','like','url'));
+            return view('detail', compact('product','comment','qty','like','url','level_1','level_2','level_3','level_4'));
         }
         else{
             $checklike = Like::where('product_id',$id)->where('user_id', Auth::user()->id)->get();
+            $rat = Ratting::where('product_id',$id)->where('user_id', Auth::user()->id)->get();
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
-            return view('detail', compact('product','comment','qty','amount','like','checklike','url','notify','amount_notify'));
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
+            return view('detail', compact('product','comment','qty','amount','like','checklike','url','notify','amount_notify','rat','level_1','level_2','level_3','level_4'));
         }
     }
     public function card(Request $request,$id)
@@ -299,7 +306,6 @@ class CustomerController extends Controller
 
     public function DatHang(Request $request)
     {
-        // $user=Auth::user()->id;
         $check = $request->check;
         $url = $request->url();
         if(!($check)){
@@ -311,8 +317,8 @@ class CustomerController extends Controller
             }
             $qty = Cart::count();
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
             return view('order',compact('cart','qty','amount','url','notify','amount_notify'));
         }
     }
@@ -331,8 +337,8 @@ class CustomerController extends Controller
         $user=Auth::user()->id;
         $qty = Cart::count();
         $order=order::with('products','statuses','users','cards')->where(['user_id'=>$user,'status_id'=>4])->get();
-        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
-        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
         $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
         return view('delivered',compact('qty','order','amount','amount_notify','notify','url'));
@@ -343,8 +349,8 @@ class CustomerController extends Controller
         $user=Auth::user()->id;
         $qty = Cart::count();
         $order=order::with('products','statuses','users','cards')->find($id);
-        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
-        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
         $url = $request->url();
         $amount = Wishlist::where('user_id',Auth::user()->id)->get();
         return view('bill_detail',compact('qty','order','amount','amount_notify','notify','url'));
@@ -360,8 +366,8 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
             return view('post',compact('post','qty','amount','url','notify','amount_notify'));
         }
     }
@@ -382,8 +388,8 @@ class CustomerController extends Controller
         else{
             $checklike = Like::where('post_id',$id)->where('user_id', Auth::user()->id)->get();
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
             return view('post-detail',compact('post','qty','comment','amount','like','checklike','url','notify','amount_notify'));
         }
     }
@@ -398,8 +404,8 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
             return view('gioithieu',compact('post','qty','amount','url','notify','amount_notify'));
         }
     }
@@ -438,8 +444,8 @@ class CustomerController extends Controller
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
-            $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+            $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+            $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
             return view('search',compact('key','qty','product','amount','url','notify','amount_notify'));
         }
     }

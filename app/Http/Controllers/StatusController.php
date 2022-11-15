@@ -16,8 +16,8 @@ class StatusController extends Controller
     public function index(Request $request)
     {
         $status= status::all();
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.status.list',compact('status','notify','amount','url'));
     }
@@ -29,8 +29,8 @@ class StatusController extends Controller
      */
     public function create(Request $request)
     {
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.status.add',compact('notify','amount','url'));
         
@@ -67,8 +67,8 @@ class StatusController extends Controller
     public function show($id, Request $request)
     {
         $status= status::find($id);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.status.update',compact('status','notify','amount','url'));
 

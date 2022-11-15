@@ -36,8 +36,8 @@ class HomeController extends Controller
         $user = User::all();
         $post = Post::all();
         $giao = order::where('status_id',4)->get();
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.dashboard',compact('product','order','user','post','giao','notify','amount','url'));
     }

@@ -45,12 +45,12 @@
                           <p class="font-weight-bold mb-0 text-center">{{$item->users->name}}</p>
                         </td>
                         <td class=" d-flex justify-content-center text-sm">
-                          <a href="admin/quan-ly-bai-viet/{{$item->id}}" class="btn btn-success "><i class="fas fa-pen"></i></a>
+                          <a href="admin/quan-ly-bai-viet/{{$item->id}}"  title="Chỉnh sửa" class="btn btn-success "><i class="fas fa-pen"></i></a>
                           <div style="height: 100%;width:5px"></div>
                           <form action="admin/quan-ly-bai-viet/{{$item->id}}" method="post">
                               @csrf
                               @method('delete')
-                              <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa bài viết này không?')"><i class="fas fa-trash"></i></button>
+                              <button type="submit" class="btn btn-danger" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa bài viết này không?')"><i class="fas fa-trash"></i></button>
                           </form>
                         </td>
                       </tr>

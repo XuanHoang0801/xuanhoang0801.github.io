@@ -22,8 +22,8 @@ class WishlistController extends Controller
         $url = $request->url();
         $wishlist = Wishlist::with('products')->where('user_id', $user)->get();
         $amount = Wishlist::with('products')->where('user_id', $user)->get();
-        $notify = Notify::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
-        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->get();
+        $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
+        $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
         return view('wishlist',compact('qty', 'wishlist','amount','url','notify','amount_notify'));
     }
 

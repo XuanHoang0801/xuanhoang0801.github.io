@@ -71,26 +71,27 @@
                             <label for="" class="form-label ">Địa chỉ nhận hàng:</label>
                             <span >{{$order->address}}</span>
                         </div>
+                        <div class="form-group mb-3 pt-3 ">
+                            <label for="" class="form-label ">Trạng thái đơn hàng:</label>
+                            @if ($order->status_id == 4)
+                                <span class="text-success"> {{$order->statuses->name}}</span>
+                            @else
+                                
+                            <select class="form-select" aria-label="Default select example" name="status">
+                                <option value="{{$order->statuses->id}}">{{$order->statuses->name}}</option>
+                                @foreach ($status as $item)
+                                @if ($order->statuses->id == $item->id)
+                                    
+                                @else
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endif
+                                @endforeach
+                              </select>
+                            @endif
+                        </div>
                     </div>
                 </div>
         
-                <div class="form-group mb-3 pt-3">
-                    <label for="" class="form-label ">Trạng thái đơn hàng:</label>
-                    <select class="form-select col-3" aria-label="Default select example" name="status">
-                      
-                        <option value="{{$order->statuses->id}}">{{$order->statuses->name}}</option>
-                        
-                            
-                        @foreach ($status as $item)
-                        @if ($order->statuses->id == $item->id)
-                            
-                        @else
-                        <option value="{{$item->id}}">{{$item->name}}</option>
-                        @endif
-                        @endforeach
-                       
-                      </select>
-                </div>
                 
                 
                 

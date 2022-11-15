@@ -71,16 +71,271 @@
 
                 <h2 class="text-uppercase text-success">Đánh giá sản phẩm</h2>
                 @if (Auth::check())
-                <div class="form-group">
-                    <label for="" class="form-lable">Nội dung:</label>
-                  <textarea name="body" id="" placeholder="Nhập đánh giá sản phẩm..." class="form-control body"></textarea>
-                  <div class="error"></div>
-                  <button class="btn btn-success mt-3 comment">Đánh giá</button>
-                </div>
+                    <div class="ratting d-flex justify-content-around">
+                        <div class="d-block">
+
+                            <div class="ratting-item">
+                                <i class="far fa-frown text-warning"></i> <span>{{count($level_1)}} đánh giá</span>
+                            </div>
+                            <div class="ratting-item">
+                                <i class="far fa-meh text-warning"></i> <span>{{count($level_2)}} đánh giá</span>
+                            </div>
+                            <div class="ratting-item">
+                                <i class="far fa-smile text-warning"></i> <span>{{count($level_3)}} đánh giá</span>
+                            </div>
+                            <div class="ratting-item">
+                                <i class="far fa-kiss-wink-heart text-warning"></i> <span>{{count($level_4)}} đánh giá</span>
+                            </div>
+
+                            <div class="d-block">
+                                @if (count($level_2) ==0 && count($level_3) ==0 && count($level_1) ==0 && count($level_4)==0 )
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            @else
+                                
+                            @if (count($level_4) > count($level_3) && count($level_4) > count($level_2)  && count($level_4) > count($level_1) )
+                                 
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                              @endif
+                              @if (count($level_3) > count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+
+                              @endif
+  
+                              @if (count($level_2) > count($level_4) && count($level_2) > count($level_3)  && count($level_2) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+
+                              @endif
+                              
+                              @if (count($level_1) > count($level_4) && count($level_1) > count($level_3)  && count($level_1) > count($level_2))
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_3) < count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_3) == count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                              @endif
+                              
+                              @if (count($level_1) == count($level_4) && count($level_1) == count($level_2) && count($level_1) == count($level_3))
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_1) == count($level_2) && count($level_1) == count($level_3) && count($level_1) > count($level_4))
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_2) == count($level_3) && count($level_2) == count($level_4) && count($level_2) > count($level_1))
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                              @endif
+                            @endif
+                            </div>
+                        </div>
+                        @if (count($rat)==1)
+                            @foreach ($rat as $rat)
+                            <div class="d-block">
+
+                                <h6 class="text-success">Vui lòng đánh giá về sản phẩm của chúng tôi!</h6>
+                                    <div class="star-body d-flex justify-content-center">
+                                        <div class="star pr-2" data-value="1" data-id="{{$rat->id}}" title="Không hài lòng">
+                                            @if ($rat->level==1)
+                                                <i class="fa fa-frown rat "></i>
+                                            @else
+                                                <i class="far fa-frown"></i>
+                                            @endif
+                                        </div>
+                                        <div class="star pr-2"  data-value="2" data-id="{{$rat->id}}" title="Bình thường">
+                                            @if ($rat->level==2)
+                                                <i class="fa fa-meh rat"></i>  
+                                            @else
+                                                <i class="far fa-meh"></i>
+                                            @endif
+                                        </div>
+                                        <div class="star pr-2"  data-value="3" data-id="{{$rat->id}}" title="Hài lòng">
+                                            @if ($rat->level==3)
+                                            <i class="fa fa-smile rat"></i>
+                                            @else                                        
+                                            <i class="far fa-smile"></i>
+                                            @endif
+                                        </div>
+                                        <div class="star pr-2"  data-value="4" data-id="{{$rat->id}}" title="Rất hài lòng">
+                                            @if ($rat->level==4)
+                                                <i class="fa fa-kiss-wink-heart rat"></i>
+                                            @else
+                                                <i class="far fa-kiss-wink-heart"></i>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            
+                            @else
+                            
+                            <div class="star-body d-flex justify-content-center">
+                                <div class="star pr-2" data-value="1" data-id="{{$product->id}}" title="Không hài lòng">
+                                    <i class="far fa-frown"></i>
+                                </div>
+                                <div class="star pr-2"  data-value="2" data-id="{{$product->id}}" title="Bình thường">
+                                    <i class="far fa-meh"></i>
+                                </div>
+                                <div class="star pr-2"  data-value="3" data-id="{{$product->id}}" title="Hài lòng">
+                                    <i class="far fa-smile"></i>
+                                </div>
+                                <div class="star pr-2"  data-value="4" data-id="{{$product->id}}" title="Rất hài lòng">
+                                    <i class="far fa-kiss-wink-heart"></i>
+                                </div>
+                            </div>
+                                
+                            @endif
+                            </div>
+                    </div>
+
+                    <div class="success-ratting text-success"></div>
+                    <h2 class="text-success text-uppercase mt-3">Bình luận</h2>
+                    <div class="form-group">
+                        <label for="" class="form-lable">Nội dung:</label>
+                    <textarea name="body" id="" placeholder="Nhập nội dung..." class="form-control body"></textarea>
+                    <div class="error"></div>
+                    <button class="btn btn-success mt-3 comment">Bình luận</button>
+                    </div>
                 @else
-                    <a class="text-primary" href="/dang-nhap">Đăng nhập để đánh giá! </a>
+                    <a class="text-primary" href="/dang-nhap">Đăng nhập để đánh giá và bình luận! </a>
+                    <div class="ratting d-flex justify-content-around">
+                        <div class="d-block">
+
+                            <div class="ratting-item">
+                                <i class="far fa-frown text-warning"></i> <span>{{count($level_1)}} đánh giá</span>
+                            </div>
+                            <div class="ratting-item">
+                                <i class="far fa-meh text-warning"></i> <span>{{count($level_2)}} đánh giá</span>
+                            </div>
+                            <div class="ratting-item">
+                                <i class="far fa-smile text-warning"></i> <span>{{count($level_3)}} đánh giá</span>
+                            </div>
+                            <div class="ratting-item">
+                                <i class="far fa-kiss-wink-heart text-warning"></i> <span>{{count($level_4)}} đánh giá</span>
+                            </div>
+                        </div>
+
+                        <div class="d-block">
+                            @if (count($level_2) ==0 && count($level_3) ==0 && count($level_1) ==0 && count($level_4)==0 )
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            @else
+                                
+                            @if (count($level_4) > count($level_3) && count($level_4) > count($level_2)  && count($level_4) > count($level_1) )
+                                 
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                              @endif
+                              @if (count($level_3) > count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+
+                              @endif
+  
+                              @if (count($level_2) > count($level_4) && count($level_2) > count($level_3)  && count($level_2) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+
+                              @endif
+                              
+                              @if (count($level_1) > count($level_4) && count($level_1) > count($level_3)  && count($level_1) > count($level_2))
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_3) < count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_3) == count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                              @endif
+                              
+                              @if (count($level_1) == count($level_4) && count($level_1) == count($level_2) && count($level_1) == count($level_3))
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="far fa-star"></i>
+                              <i class="far fa-star"></i>
+                              <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_1) == count($level_2) && count($level_1) == count($level_3) && count($level_1) > count($level_4))
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fas fa-star-half-alt"></i>
+                              <i class="far fa-star"></i>
+                              <i class="far fa-star"></i>
+                              @endif
+                              @if (count($level_2) == count($level_3) && count($level_2) == count($level_4) && count($level_2) > count($level_1))
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="far fa-star"></i>
+                              <i class="far fa-star"></i>
+                              @endif
+                            @endif
+                        </div>
+                    </div>
                 @endif
-                <div class="comment-body">
+                <div class="comment-body mt-3">
                    @foreach ($comment as $cmt)
                    <div class="form-group div-comment" >
                        <p class="name text-primary">{{$cmt->name}}</p>
@@ -149,10 +404,8 @@
         $('.comment').click(function(){
             var id=$('.id').val();
             var body=$('.body').val();
-            var name=$('.name').val();
-            if(body == '' && name==''){
-                $('.error').html('<span class="text-danger"> Vui lòng nhập nội dung đánh giá!</span>');
-                $('.error-name').html('<span class="text-danger"> Vui lòng nhập tên của bạn!</span>');
+            if(body == ""){
+                $('.error').html('<span class="text-danger"> Vui lòng nhập nội dung bình luận!</span>');
             }
             else{
 
@@ -165,7 +418,7 @@
                 function(data){
                     $('.comment-body').append(data);
                     $('.error-name').remove();
-                    $('.error').html('<span class="text-success"> Cảm ơn bạn đã đánh giá về sản phẩm của chúng tôi!</span>');                   
+                    $('.error').html('<span class="text-success"> Cảm ơn bạn đã bình luận về sản phẩm của chúng tôi!</span>');                   
                 });
             }
 
@@ -193,6 +446,25 @@
                 $('.icon-like').html(data['icon']);
                 $('.like').html(data['success']);
             });
+        });
+
+        //star
+        $(".star").click(function(e) {
+            var id = $(this).data('id');
+            var icon = $(this).data('value');
+            var product_id=$('.id').val();
+
+            $.post("/ajax/ratting",
+                {
+                    _token: '{{ csrf_token() }}',
+                    id:id,
+                    icon:icon,
+                    product_id:product_id,
+                },
+                function(data){
+                    location.reload('san-pham/'+product_id);
+
+                });
         });
     });
 </script>

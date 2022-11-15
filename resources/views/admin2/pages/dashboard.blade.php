@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
-      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <a href="/admin/quan-ly-san-pham" class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
@@ -24,8 +24,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      </a>
+      <a href="/admin/quan-ly-don-hang" class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
@@ -46,8 +46,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      </a>
+      <a href="/admin/khach-hang" class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
@@ -68,8 +68,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-xl-3 col-sm-6">
+      </a>
+      <a href="/admin/quan-ly-don-hang/da-giao" class="col-xl-3 col-sm-6">
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
@@ -90,7 +90,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
     <div class="row mt-4">
       <div class="col-lg-7 mb-lg-0 mb-4">

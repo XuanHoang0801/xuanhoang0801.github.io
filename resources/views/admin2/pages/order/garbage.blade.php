@@ -69,7 +69,7 @@
                         {{-- <a href="admin/quan-ly-don-hang/{{$item->id}}" class="btn btn-success "><i class="fas fa-eye"></i></a> --}}
                         @endif
                         <div style="height: 100%;width:5px"></div>
-                        <form action="admin/quan-ly-don-hang/{{$item->id}}" method="post">
+                        <form action="admin/quan-ly-don-hang/xvv/{{$item->id}}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa đơn hàng này không?')"><i class="fas fa-trash"></i></button>

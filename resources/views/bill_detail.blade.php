@@ -50,13 +50,12 @@
                             <th scope="col">Giá</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Tổng tiền</th>
-                            <th scope="col">Ngày lập hóa đơn</th>
+                            <th scope="col">Ngày đặt</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        
+                    <tbody>                  
                         <tr >
                             
                             {{-- <th  class="text-center">{{$stt++}}</th> --}}

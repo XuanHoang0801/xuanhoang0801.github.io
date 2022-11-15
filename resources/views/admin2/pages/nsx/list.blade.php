@@ -40,12 +40,12 @@
 
                       </td>
                       <td class=" d-flex justify-content-center text-sm">
-                        <a href="admin/nha-san-xuat/{{$item->id}}" class="btn btn-success"><i class="fas fa-pen"></i></a>
+                        <a href="admin/nha-san-xuat/{{$item->id}}" class="btn btn-success" title="Chỉnh sửa"><i class="fas fa-pen"></i></a>
                         <div style="height: 100%;width:5px"></div>
                         <form action="admin/nha-san-xuat/{{$item->id}}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa danh mục này không?')"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Tất cả sản phẩm liên quan sẽ bị xóa. Bạn chắc chắn muốn xóa nhà sản xuất này không?')" title="Xóa"><i class="fas fa-trash"></i></button>
                         </form>
                       </td>
                     </tr>

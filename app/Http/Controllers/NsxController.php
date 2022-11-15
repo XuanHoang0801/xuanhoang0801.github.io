@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\nsx;
 use App\Models\Notify;
 use App\Models\Categories;
+use App\Models\product;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -18,8 +19,8 @@ class NsxController extends Controller
     public function index(Request $request)
     {
         $producer = nsx::all();
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         
 
@@ -34,8 +35,8 @@ class NsxController extends Controller
     public function create(Request $request)
     {
         $categories = Categories::all();
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.nsx.add', compact('categories', 'notify','amount','url'));
     }
@@ -74,10 +75,9 @@ class NsxController extends Controller
     public function show(Request $request,$id)
     {
         $producer = nsx::find($id);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $url = $request->url();
-        $amount = Notify::where('status',0)->get();
-        
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
+        $url = $request->url();        
         $categories = Categories::all();
         return view('admin2.pages.nsx.update', compact('producer', 'categories','notify','amount','url'));
 
@@ -127,6 +127,7 @@ class NsxController extends Controller
      */
     public function destroy($id)
     {
+        product::where('producer_id',$id)->delete();
         $producer = nsx::find($id)->delete();
         return redirect('/admin/nha-san-xuat/')->with(['thongbao'=>'Đã xóa nhà sản xuất thành công!']);
 

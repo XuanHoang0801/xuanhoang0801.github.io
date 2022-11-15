@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\card;
 use App\Models\Categories;
+use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Notify;
 use App\Models\producer;
 use App\Models\product;
+use App\Models\Ratting;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\Auth;
@@ -285,5 +287,23 @@ class AjaxController extends Controller
                 'icon' => '<i class="far fa-thumbs-up"></i>'
             ]);
         }
+    }
+
+    public function Ratting(Request $request)
+    {
+        $id = $request->id;
+        $user = $request->user()->id;
+        $check= Ratting::find($id);
+        if(!(empty($check))){
+            $check->level = $request->icon;
+            $check->save();
+        }
+        else{
+            $ratting = new Ratting();
+            $ratting->product_id = $id;
+            $ratting->user_id = $user;
+            $ratting->level = $request->icon;
+            $ratting->save();
+        } 
     }
 }

@@ -20,7 +20,7 @@
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7"></th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Sản phẩm</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Giá</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Giá km</th>
+                    {{-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Giá km</th> --}}
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Thể loại</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nhà sản xuất</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Người đăng</th>
@@ -45,9 +45,9 @@
                       <td>
                         <p class="font-weight-bold mb-0 text-danger">{{number_format($item->price)}} &#8363</p>
                       </td>
-                      <td>
+                      {{-- <td>
                         <p class="font-weight-bold mb-0 text-primary">{{number_format($item->promotion)}} &#8363</p>
-                      </td>
+                      </td> --}}
                       <td>
                         <p class="font-weight-bold mb-0 text-center ">{{$item->categories->name}}</p>
                       </td>
@@ -58,12 +58,12 @@
                         <p class="font-weight-bold mb-0 text-center">{{$item->users->name}}</p>
                       </td>
                       <td class=" d-flex justify-content-center text-sm">
-                        <a href="admin/quan-ly-san-pham/{{$item->id}}" class="btn btn-success "><i class="fas fa-pen"></i></a>
+                        <a href="admin/quan-ly-san-pham/{{$item->id}}" class="btn btn-success" title="Chỉnh sửa"><i class="fas fa-pen"></i></a>
                         <div style="height: 100%;width:5px"></div>
                         <form action="admin/quan-ly-san-pham/{{$item->id}}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa danh mục này không?')"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-danger" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa danh mục này không?')"><i class="fas fa-trash"></i></button>
                         </form>
                       </td>
                     </tr>

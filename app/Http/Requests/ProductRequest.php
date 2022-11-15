@@ -26,7 +26,6 @@ class ProductRequest extends FormRequest
         return [
             'name'=>'required|unique:products,name',
             'price'=>'required|min:4|numeric',
-            'promotion'=>'lt:price',
             'body'=>'required',
             'qty'=>'required'
 
@@ -40,7 +39,6 @@ class ProductRequest extends FormRequest
             'price.required'=>'Bạn chưa nhập giá sản phẩm!',
             'price.min'=>'Giá không được nhỏ hơn 1000!',
             'price.number'=>'Chỉ được phép nhập số!',
-            'promotion.lt'=>'Giá khuyến mãi phải nhỏ hơn giá gốc!',
             'body.required'=>'Vui lòng nhập miêu tả sản phẩm!',
             'qty.required'=>"Vui lòng nhập số lượng sản phẩm có trong kho!"
         ];

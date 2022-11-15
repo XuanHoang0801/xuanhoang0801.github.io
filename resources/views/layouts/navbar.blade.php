@@ -49,7 +49,7 @@
                      null;
                   }
                    ?>">
-                     <a class="nav-link" href="/bai-viet">Tin tức</a>
+                     <a class="nav-link" href="/bai-viet">Bài viết</a>
                   </li>
                   <li class="nav-item 
                   <?php

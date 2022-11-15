@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notify;
 use App\Models\Categories;
+use App\Models\product;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -24,8 +25,8 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         $categories=Categories::all();
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url  = $request->url();
 
         // return view('admin.danh-muc.list',['categories'=>$categories]);
@@ -39,8 +40,8 @@ class CategoriesController extends Controller
      */
     public function create(Request $request)
     {
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.categories.add',compact('notify','amount','url'));
     }
@@ -77,8 +78,8 @@ class CategoriesController extends Controller
     public function show($id, Request $request)
     {
         $categories=Categories::find($id);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->path();
         $parameters = request()->route()->parameters;
         return view('admin2.pages.categories.update', compact('categories','notify','amount','url','parameters'));
@@ -127,6 +128,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
+        product::where('categories_id',$id)->delete();
         $categories= Categories::find($id)->delete();
         return redirect('admin/danh-muc')->with(['thongbao'=>'Xóa danh mục thành công!']);
     }

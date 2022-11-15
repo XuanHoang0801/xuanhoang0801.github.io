@@ -19,8 +19,8 @@ class PostController extends Controller
     public function index(Request $request)
     {
        $post = Post::with('categories','users')->paginate(5);
-       $notify = Notify::orderBy('id', 'DESC')->get();
-       $amount = Notify::where('status',0)->get();
+       $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+       $amount = Notify::where('status',0)->where('style',0)->get();
        $url = $request->url();
        return view('admin2.pages.post.list',compact('post','notify','amount','url'));
     }
@@ -33,8 +33,8 @@ class PostController extends Controller
     public function create(Request $request)
     {
         $categories = Categories::all();
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
 
 
@@ -77,8 +77,8 @@ class PostController extends Controller
     public function show($id, Request $request)
     {
         $post = Post::find($id);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         $categories = Categories::all();
         return view('admin2.pages.post.update',compact('post','categories','notify','amount','url'));
@@ -138,8 +138,8 @@ class PostController extends Controller
     public function garbage(Request $request)
     {
         $post=Post::onlyTrashed()->paginate(5);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status', 0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.post.garde',compact('post','notify','amount','url'));
     }
@@ -157,8 +157,8 @@ class PostController extends Controller
 
     public function gioithieu(Request $request)
     {
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         $post = Post::with('categories')->find(3);
         return view('admin2.pages.post.gioithieu',compact('notify','amount','url','post'));

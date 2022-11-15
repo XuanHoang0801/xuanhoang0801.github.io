@@ -30,7 +30,7 @@
                         <p class="text-danger mt-3 text-sm">{{ $message }}</p>
                         @enderror
                       </div>
-                      <div class="d-flex mt-3">
+                      {{-- <div class="d-flex mt-3">
                         <label for="validationDefault02" class="form-label col-4 mx-2 my-2">Giá khuyến mãi:</label>
                         <input type="number" class="form-control @error('promotion') is-invalid @enderror promotion" value="{{old('promotion')}}{{$product->promotion}}" name="promotion" placeholder="Nhập giá khuyến mãi..."> 
                         <span class="mx-2 my-2">&#8363</span>
@@ -38,7 +38,7 @@
                         @error('promotion')
                         <p class="text-danger mt-3 text-sm error"></p>
                         @enderror
-                      </div>
+                      </div> --}}
                       <div class="d-flex mt-3">
                         <label for="validationDefault02" class="form-label col-4 mx-2 my-2">Số lượng trong kho:</label>
                         <input type="number" class="form-control @error('qty') is-invalid @enderror qty" value="{{old('qty')}}{{$product->qty}}" name="qty" placeholder="Nhập số lượng sản phẩm trong kho..."> 

@@ -37,7 +37,6 @@ class ProductUpdateRequest extends FormRequest
             'price.required'=>'Bạn chưa nhập giá sản phẩm!',
             'price.min'=>'Giá không được nhỏ hơn 1000',
             'price.number'=>'Chỉ được phép nhập số!',
-            // 'promotion.lt'=>'Giá khuyến mãi phải nhỏ hơn giá gốc!',
             'body.required'=>'Sản phẩm chưa có nội dung chi tiết!',
         ];
     }

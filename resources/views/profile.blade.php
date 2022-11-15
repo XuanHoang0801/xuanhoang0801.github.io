@@ -73,7 +73,7 @@
                     </div>
                     <div class="">
 
-                        <div class="mb-3 d-flex">
+                        <div class="mb-3">
                             <label for="fullname" class="col-sm-4 col-form-label">Ảnh đại diện:</label>
                             <div class="col-sm-10">
                                 <img src="/assets/img/{{Auth::user()->image}}" alt="" srcset="" width="200">

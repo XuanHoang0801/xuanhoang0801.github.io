@@ -19,8 +19,8 @@ class OrderAdminController extends Controller
     public function index(Request $request)
     {
         $order=order::with('products','statuses','users','cards')->orderBy('id','DESC')->paginate(5);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.order.list',compact('order','notify','amount','url'));
     }
@@ -58,8 +58,8 @@ class OrderAdminController extends Controller
         if (!($order)) {
             return redirect('404');
         }
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $status =status::all();
         $url = $request->url();
         return view('admin2.pages.order.update',compact('order','status','notify','amount','url'));
@@ -86,8 +86,14 @@ class OrderAdminController extends Controller
     public function update(Request $request, $id)
     {
         $order= order::with('statuses')->find($id);
-        $order->status_id=$request->status;
-        $order->save();
+        //cập nhật trạng thái
+        if ($order->status_id == $request->status) {
+            return redirect('admin/quan-ly-don-hang/'.$id.'')->with(['thongbao'=>'Không có gì thay đổi!']);
+        } else {
+            $order->status_id=$request->status;
+            $order->save();
+        }
+        //cập nhật số lượng bán được
         $order= order::with('statuses')->find($id);
         if($request->status == 4){
 
@@ -96,11 +102,12 @@ class OrderAdminController extends Controller
             $product->buy++;
             $product->save();
         }
-
+        //Tạo thông báo
         $notify = new Notify();
         $notify->body = 'Đơn hàng <span class="text-primary">'.$order->order_id.'</span> của bạn đã cập nhật trạng thái thành <span class="text-success">'.$order->statuses->name.'</span>';
         $notify->user_id = $order->user_id;
         $notify->order_id = $order->id;
+        $notify->style = 1;
         $notify->save();
         return redirect('/admin/quan-ly-don-hang/'.$id.'')->with(['thongbao'=>'Đã cập nhật đơn hàng!']);
     }
@@ -116,12 +123,27 @@ class OrderAdminController extends Controller
         //
     }
 
+    public function delivered(Request $request)
+    {
+        $order = order::with('products','statuses','users','cards')->where('status_id',4)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
+        $url = $request->url();
+        return view('admin2.pages.order.delivered',compact('order','notify','amount','url'));
+    }
+
     public function garbage(Request $request)
     {
         $order = order::onlyTrashed()->orderBy('id','DESC')->get();
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.order.garbage',compact('order','notify','amount','url'));
+    }
+
+    public function force($id)
+    {
+        order::withTrashed()->find($id)->forceDelete();
+        return redirect('/admin/quan-ly-don-hang/don-huy')->with(['thongbao'=>'Đã xóa đơn hàng thành công!']);
     }
 }

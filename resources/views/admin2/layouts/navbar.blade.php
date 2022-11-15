@@ -68,7 +68,7 @@
                     </div>
                     <div class="d-flex flex-column justify-content-center" >
                       <h6 class="text-sm font-weight-normal mb-1">
-                        <span class="font-weight-bold" >{{$notify->body}}</span>
+                        <span class=" text-wrap" >{!!$notify->body!!}</span>
                       </h6>
                       <div class="text-xs text-secondary mb-0 ">
                         <i class="fa fa-clock me-1"></i>

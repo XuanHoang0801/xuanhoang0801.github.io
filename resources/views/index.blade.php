@@ -78,7 +78,7 @@
                     <div class="product_main">
                      @foreach ($product as $item)
                      
-                     <div class="project_box" data-id="{{$item->id}}">
+                     <div class="project_box" data-id="{{$item->id}}" title="{{$item->name}}">
                            <a href="/san-pham/{{$item->id}}">
                               
                                <div class="dark_white_bg" >

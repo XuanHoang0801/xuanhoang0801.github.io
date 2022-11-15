@@ -1,6 +1,6 @@
 @extends('admin2.index')
 @section('title','Quản Lý Trạng Thái Đơn Hàng')
-@section('url','/ don-hang')
+@section('url','/ trang-thai')
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
@@ -40,12 +40,12 @@
                       
                      
                       <td class=" d-flex justify-content-center text-sm">
-                        <a href="admin/trang-thai/{{$item->id}}" class="btn btn-success "><i class="fas fa-pen"></i></a>
+                        <a href="admin/trang-thai/{{$item->id}}" class="btn btn-success" title="Chỉnh sửa"><i class="fas fa-pen"></i></a>
                         <div style="height: 100%;width:5px"></div>
                         <form action="admin/trang-thai/{{$item->id}}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa danh mục này không?')"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-danger" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa danh mục này không?')"><i class="fas fa-trash"></i></button>
                         </form>
                       </td>
                     </tr>

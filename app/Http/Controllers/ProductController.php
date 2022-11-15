@@ -22,8 +22,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $product=product::with('categories','nsx','users')->orderBy('id','DESC')->paginate(5);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.product.list',compact('product','notify','amount','url'));
     }
@@ -36,12 +36,10 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $categories=Categories::all();
-        $notify = Notify::orderBy('id', 'DESC')->get();
         $url = $request->url();
-        $amount = Notify::where('status',0)->get();
-
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $producer=nsx::all();
-        // return view('admin.product.add',['categories'=>$categories, 'producer'=>$producer]);
         return view('admin2.pages.product.add',compact('categories','producer','notify','amount','url'));
     }
 
@@ -61,12 +59,7 @@ class ProductController extends Controller
         $product->producer_id=$request->producer;
         $product->user_id=$request->user()->id;
         $product->price=$request->price;
-        if (!($request->promotion)) {
-            $product->promotion=null;
-        }
-        else{
-            $product->promotion=$request->promotion;
-            }
+        
         if (!($request->hasFile('file'))) {
             $product->image='img.png';
         }
@@ -89,10 +82,9 @@ class ProductController extends Controller
     public function show($id,Request $request)
     {
         $product=product::with('categories','nsx','users')->find($id);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
-
         $categories=Categories::all();
         $producer=nsx::all();
         return view('admin2.pages.product.update',compact('product','categories','producer','notify','amount','url'));
@@ -128,19 +120,6 @@ class ProductController extends Controller
         $product->user_id=$request->user()->id;
         $product->price=$request->price;
 
-        if (!($request->promotion)) {
-            null;
-        }
-        else
-        {
-           if($request->promotion>= $request->price){
-            return redirect('/admin/quan-ly-san-pham/'.$id.'')->with(['loi'=>'Giá khuyến mãi phải nhỏ hơn giá gốc!']);
-           }
-           else{
-            $product->promotion=$request->promotion;
-           }
-        }
-
         if (!($request->hasFile('file'))) {
            null;
         }
@@ -167,9 +146,9 @@ class ProductController extends Controller
     }
     public function garbage(Request $request)
     {
-        $product=product::onlyTrashed()->paginate(5);
-        $notify = Notify::orderBy('id', 'DESC')->get();
-        $amount = Notify::where('status',0)->get();
+        $product=product::with('categories','nsx','users')->onlyTrashed()->paginate(5);
+        $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
+        $amount = Notify::where('status',0)->where('style',0)->get();
         $url = $request->url();
         return view('admin2.pages.product.garde',compact('product','notify','amount','url'));
     }

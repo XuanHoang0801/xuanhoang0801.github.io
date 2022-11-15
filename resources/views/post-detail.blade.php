@@ -8,7 +8,7 @@
                 <h1 class="h1">{{$post->title}}</h1>
                 <input type="hidden" name="" class="id" value="{{$post->id}}">
                 <span>Ngày đăng: {{$post->updated_at->format('d-m-Y')}}</span> -  Tác giả:<span class="text-success"> {{$post->users->name}} </span> 
-                 - <span>Lượt xem: </span><span class="text-success">{{$post->view}} <i class="fas fa-eye text-success"></i></span></br>
+                 - <span>Lượt xem: </span><span class="text-primary">{{$post->view}} <i class="fas fa-eye text-primary"></i></span></br>
 
                 <div class="">
                     @if (Auth::check())
@@ -31,39 +31,39 @@
                     @endif
                 </div>
                 <div class="">{!! $post->body !!}</div>
-            </div>
-            <div style="border:2px solid rgb(195, 192, 192); padding:10px" class="col-6">
-                <h2 class="text-uppercase text-success">Bình luận bài viết</h2>
-                
-                @if (Auth::check())
-                <div class="form-group">
-                    <label for="" class="form-lable">Nội dung:</label>
-                  <textarea name="body" id="" placeholder="Nhập đánh giá sản phẩm..." class="form-control body"></textarea>
-                  <div class="error"></div>
-                  <button class="btn btn-success mt-3 comment">Bình luận</button>
+                <div style="border:2px solid rgb(195, 192, 192); padding:10px" class="col-6 mt-5">
+                    <h2 class="text-uppercase text-success">Bình luận bài viết</h2>
+                    
+                    @if (Auth::check())
+                    <div class="form-group">
+                        <label for="" class="form-lable">Nội dung:</label>
+                      <textarea name="body" id="" placeholder="Nhập đánh giá sản phẩm..." class="form-control body"></textarea>
+                      <div class="error"></div>
+                      <button class="btn btn-success mt-3 comment">Bình luận</button>
+                    </div>
+                    @else
+                        <a class="text-primary" href="/dang-nhap">Đăng nhập để đánh giá! </a>
+                    @endif
+                    <div class="comment-body">
+                       @foreach ($comment as $cmt)
+                       <div class="form-group div-comment" >
+                           <p class="name text-primary">{{$cmt->name}}</p>
+                           <span class="blockquote-footer">
+                            {{$cmt->created_at}}
+                           </span>
+                           <p class="content ml-3 text-muted">{{$cmt->body}}</p>
+                           @if (Auth::check())
+                                @if ( Auth::user()->name == $cmt->name)
+                                <span class="text-danger delete" id="" style="cursor: pointer" data-id="{{$cmt->id}}">Xóa</span>
+                                @else        
+                                @endif
+                           @else
+                           @endif
+                           <div style=" width:100%;height: .1px; background:rgb(246, 243, 243)"></div>
+                       </div>
+                       @endforeach
+                    </div>     
                 </div>
-                @else
-                    <a class="text-primary" href="/dang-nhap">Đăng nhập để đánh giá! </a>
-                @endif
-                <div class="comment-body">
-                   @foreach ($comment as $cmt)
-                   <div class="form-group div-comment" >
-                       <p class="name text-primary">{{$cmt->name}}</p>
-                       <span class="blockquote-footer">
-                        {{$cmt->created_at}}
-                       </span>
-                       <p class="content ml-3 text-muted">{{$cmt->body}}</p>
-                       @if (Auth::check())
-                            @if ( Auth::user()->name == $cmt->name)
-                            <span class="text-danger delete" id="" style="cursor: pointer" data-id="{{$cmt->id}}">Xóa</span>
-                            @else        
-                            @endif
-                       @else
-                       @endif
-                       <div style=" width:100%;height: .1px; background:rgb(246, 243, 243)"></div>
-                   </div>
-                   @endforeach
-                </div>     
             </div>
         </div>
     </div>
