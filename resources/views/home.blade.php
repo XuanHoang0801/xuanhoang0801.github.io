@@ -122,10 +122,9 @@
                             
                                 @auth
                                 <li class="dropdown">
-                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" title="{{Auth::user()->name}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{-- {{ Auth::user()->name }} --}}
+                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" title="{{Auth::user()->fullname}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <div class="avatar avatar-xs rounded-circle">
-                                          <img src="/assets/img/{{Auth::user()->image}}" alt="{{Auth::user()->name}}">
+                                          <img src="/assets/img/{{Auth::user()->image}}" alt="{{Auth::user()->fullname}}">
 
                                     </div>
                                     {{-- <img class="avatar" src="/assets/img/{{Auth::user()->image}}" alt=""> --}}

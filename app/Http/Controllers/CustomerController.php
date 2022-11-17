@@ -268,16 +268,11 @@ class CustomerController extends Controller
         $view->save();
         $product= product::with('categories','nsx')->find($id);
         $url = $request->url();
-        $comment= Comment::where('product_id',$id)->get();
+        $comment= Comment::with('users')->where('product_id',$id)->get();
         $like = Like::where('product_id',$id)->get();
         $qty = Cart::count();
-
-        $level_1 = Ratting::where('product_id',$id)->where('level',1)->get();
-        $level_2 = Ratting::where('product_id',$id)->where('level',2)->get();
-        $level_3 = Ratting::where('product_id',$id)->where('level',3)->get();
-        $level_4 = Ratting::where('product_id',$id)->where('level',4)->get();
         if(!(Auth::user())){
-            return view('detail', compact('product','comment','qty','like','url','level_1','level_2','level_3','level_4'));
+            return view('detail', compact('product','comment','qty','like','url'));
         }
         else{
             $checklike = Like::where('product_id',$id)->where('user_id', Auth::user()->id)->get();
@@ -285,7 +280,7 @@ class CustomerController extends Controller
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
             $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
             $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
-            return view('detail', compact('product','comment','qty','amount','like','checklike','url','notify','amount_notify','rat','level_1','level_2','level_3','level_4'));
+            return view('detail', compact('product','comment','qty','amount','like','checklike','url','notify','amount_notify','rat'));
         }
     }
     public function card(Request $request,$id)
@@ -380,7 +375,7 @@ class CustomerController extends Controller
         $url = $request->url();
         $post = Post::with('users')->find($id);
         $qty = Cart::count();
-        $comment = Comment::where('post_id',$id)->get();
+        $comment = Comment::with('users')->where('post_id',$id)->get();
         $like = Like::where('post_id',$id)->get();
         if(!(Auth::user())){
             return view('post-detail',compact('post','qty','comment','like','url'));

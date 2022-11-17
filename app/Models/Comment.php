@@ -19,5 +19,10 @@ class Comment extends Model
     {
         return $this->belongsTo(product::class,'product_id','id');
     }
+    public function users()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+
+    }
     
 }

@@ -293,17 +293,18 @@ class AjaxController extends Controller
     {
         $id = $request->id;
         $user = $request->user()->id;
-        $check= Ratting::find($id);
+        $rat_id = $request->rat_id;
+        $check= Ratting::find($rat_id);
         if(!(empty($check))){
-            $check->level = $request->icon;
+            $check->level = $request->ratingValue;
             $check->save();
         }
         else{
             $ratting = new Ratting();
             $ratting->product_id = $id;
             $ratting->user_id = $user;
-            $ratting->level = $request->icon;
-            $ratting->save();
+            $ratting->level = $request->ratingValue;
+            $ratting->save();   
         } 
     }
 }

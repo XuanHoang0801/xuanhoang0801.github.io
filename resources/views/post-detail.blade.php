@@ -30,7 +30,7 @@
                     <span class="count-like">{{count($like)}}</span>
                     @endif
                 </div>
-                <div class="">{!! $post->body !!}</div>
+                <div class="content">{!! $post->body !!}</div>
                 <div style="border:2px solid rgb(195, 192, 192); padding:10px" class="col-6 mt-5">
                     <h2 class="text-uppercase text-success">Bình luận bài viết</h2>
                     

@@ -50,19 +50,19 @@
             <div class="">
                @if (Auth::check())
                    
-               @if ($checklike->isEmpty())
-                   <button class="badge bg-primary text-white like">Thích</button>
-                   <span class="icon-like"><i class="far fa-thumbs-up"></i>: </span>
-                   <span class="count-like">{{count($like)}}</span>
-               @else
+                @if ($checklike->isEmpty())
+                    <button class="badge bg-primary text-white like">Thích</button>
+                    <span class="icon-like"><i class="far fa-thumbs-up"></i>: </span>
+                    <span class="count-like">{{count($like)}}</span>
+                @else
                    
                 <button class="badge bg-primary text-white like">Đã thích</button>
                 <span class="icon-like"><i class="fas fa-thumbs-up text-primary"></i> </span>
                 <span class="count-like">{{count($like)}}</span>
                @endif
                @else
-               <a href="/dang-nhap"  class="badge bg-primary text-white like">Thích</a>
-               <span class="icon-like"><i class="fas fa-thumbs-up text-primary"></i> </span>
+               {{-- <a href="/dang-nhap"  class="badge bg-primary text-white like">Thích</a> --}}
+               <span class="icon-like" title="Lượt thích"><i class="fas fa-thumbs-up text-primary"></i> </span>
                <span class="count-like text-primary">{{count($like)}}</span>
                @endif
 
@@ -73,157 +73,180 @@
                 @if (Auth::check())
                     <div class="ratting d-flex justify-content-around">
                         <div class="d-block">
+                            <div class='rating-stars text-center'>
+                                @if (count($rat)==1)
+                                    @foreach ($rat as $rat)
+                                        @if ($rat->level==1) 
+                                            <ul id='stars' class="d-flex justify-content-center">
+                                                <li class='star selected' title='Poor' data-value='1' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw '></i>
+                                                </li>
+                                                <li class='star' title='Fair' data-value='2' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Good' data-value='3' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Excellent' data-value='4' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='WOW!!!' data-value='5' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                            </ul>
+                                            <div class='success-boxed'>
+                                                <div class='clearfix'></div>
+                                                <div class='text-message'>
+                                                    <i class="fas fa-check bg-success p-2 text-white mr-2" style="border-radius:1.5rem "; ></i><span>Bạn đã đánh giá {{$rat->level}} sao cho sản phẩm này</span>
+                                                </div>
+                                                <div class='clearfix'></div>
+                                            </div>
+                                           
+                                        @endif
+                                        @if ($rat->level==2) 
+                                            <ul id='stars' class="d-flex justify-content-center">
+                                                <li class='star selected' title='Poor' data-value='1' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw '></i>
+                                                </li>
+                                                <li class='star selected' title='Fair' data-value='2' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Good' data-value='3'data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Excellent' data-value='4'data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='WOW!!!' data-value='5'data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                            </ul>
+                                            <div class='success-boxed'>
+                                                <div class='clearfix'></div>
+                                                <div class='text-message'>
+                                                    <i class="fas fa-check bg-success p-2 text-white mr-2" style="border-radius:1.5rem "; ></i><span>Bạn đã đánh giá {{$rat->level}} sao cho sản phẩm này</span>
 
-                            <div class="ratting-item">
-                                <i class="far fa-frown text-warning"></i> <span>{{count($level_1)}} đánh giá</span>
-                            </div>
-                            <div class="ratting-item">
-                                <i class="far fa-meh text-warning"></i> <span>{{count($level_2)}} đánh giá</span>
-                            </div>
-                            <div class="ratting-item">
-                                <i class="far fa-smile text-warning"></i> <span>{{count($level_3)}} đánh giá</span>
-                            </div>
-                            <div class="ratting-item">
-                                <i class="far fa-kiss-wink-heart text-warning"></i> <span>{{count($level_4)}} đánh giá</span>
-                            </div>
+                                                </div>
+                                                <div class='clearfix'></div>
+                                            </div>
+                                        @endif
+                                        @if ($rat->level==3) 
+                                            <ul id='stars' class="d-flex justify-content-center">
+                                                <li class='star selected' title='Poor' data-value='1' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw '></i>
+                                                </li>
+                                                <li class='star selected' title='Fair' data-value='2' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star selected' title='Good' data-value='3' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Excellent' data-value='4' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='WOW!!!' data-value='5' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                            </ul>
+                                            <div class='success-boxed'>
+                                                <div class='clearfix'></div>
+                                                <div class='text-message'>
+                                                    <i class="fas fa-check bg-success p-2 text-white mr-2" style="border-radius:1.5rem "; ></i><span>Bạn đã đánh giá {{$rat->level}} sao cho sản phẩm này</span>
 
-                            <div class="d-block">
-                                @if (count($level_2) ==0 && count($level_3) ==0 && count($level_1) ==0 && count($level_4)==0 )
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                            @else
-                                
-                            @if (count($level_4) > count($level_3) && count($level_4) > count($level_2)  && count($level_4) > count($level_1) )
-                                 
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                              @endif
-                              @if (count($level_3) > count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
+                                                </div>
+                                                <div class='clearfix'></div>
+                                            </div>
+                                        @endif
+                                        @if ($rat->level==4) 
+                                            <ul id='stars' class="d-flex justify-content-center">
+                                                <li class='star selected' title='Poor' data-value='1' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw '></i>
+                                                </li>
+                                                <li class='star selected' title='Fair' data-value='2' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star selected' title='Good' data-value='3' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star selected' title='Excellent' data-value='4' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='WOW!!!' data-value='5' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                            </ul>
+                                            <div class='success-boxed'>
+                                                <div class='clearfix'></div>
+                                                <div class='text-message'>
+                                                    <i class="fas fa-check bg-success p-2 text-white mr-2" style="border-radius:1.5rem "; ></i><span>Bạn đã đánh giá {{$rat->level}} sao cho sản phẩm này</span>
 
-                              @endif
-  
-                              @if (count($level_2) > count($level_4) && count($level_2) > count($level_3)  && count($level_2) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
+                                                </div>
+                                                <div class='clearfix'></div>
+                                            </div>
+                                        @endif
+                                        @if ($rat->level==5) 
+                                            <ul id='stars' class="d-flex justify-content-center">
+                                                <li class='star selected' title='Poor' data-value='1' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw '></i>
+                                                </li>
+                                                <li class='star selected' title='Fair' data-value='2' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star selected' title='Good' data-value='3' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star selected' title='Excellent' data-value='4' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star selected' title='WOW!!!' data-value='5' data-id="{{$rat->id}}">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                            </ul>
+                                            <div class='success-boxed '>
+                                                <div class='clearfix'></div>
+                                                <div class='text-message'>
+                                                    <i class="fas fa-check bg-success p-2 text-white mr-2" style="border-radius:1.5rem "; ></i><span>Bạn đã đánh giá {{$rat->level}} sao cho sản phẩm này</span>
 
-                              @endif
-                              
-                              @if (count($level_1) > count($level_4) && count($level_1) > count($level_3)  && count($level_1) > count($level_2))
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_3) < count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_3) == count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                              @endif
-                              
-                              @if (count($level_1) == count($level_4) && count($level_1) == count($level_2) && count($level_1) == count($level_3))
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_1) == count($level_2) && count($level_1) == count($level_3) && count($level_1) > count($level_4))
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_2) == count($level_3) && count($level_2) == count($level_4) && count($level_2) > count($level_1))
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                              @endif
-                            @endif
+                                                </div>
+                                                <div class='clearfix'></div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <ul id='stars' class="d-flex">
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                    <div class='success-boxing'>
+                                        <div class='clearfix'></div>
+                                        <div class='text-message'>
+                                            <i class="fas fa-check bg-success p-2 text-white mr-2" style="border-radius:1.5rem "; ></i><span>Vui lòng đánh giá cho sản phẩm này!</span>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                    </div>
+                                   
+                                @endif
+                                <div class='success-box'>
+                                    <div class='clearfix'></div>
+                                    <div class='text-message'></div>
+                                    <div class='clearfix'></div>
+                               
+                                </div>
                             </div>
                         </div>
-                        @if (count($rat)==1)
-                            @foreach ($rat as $rat)
-                            <div class="d-block">
-
-                                <h6 class="text-success">Vui lòng đánh giá về sản phẩm của chúng tôi!</h6>
-                                    <div class="star-body d-flex justify-content-center">
-                                        <div class="star pr-2" data-value="1" data-id="{{$rat->id}}" title="Không hài lòng">
-                                            @if ($rat->level==1)
-                                                <i class="fa fa-frown rat "></i>
-                                            @else
-                                                <i class="far fa-frown"></i>
-                                            @endif
-                                        </div>
-                                        <div class="star pr-2"  data-value="2" data-id="{{$rat->id}}" title="Bình thường">
-                                            @if ($rat->level==2)
-                                                <i class="fa fa-meh rat"></i>  
-                                            @else
-                                                <i class="far fa-meh"></i>
-                                            @endif
-                                        </div>
-                                        <div class="star pr-2"  data-value="3" data-id="{{$rat->id}}" title="Hài lòng">
-                                            @if ($rat->level==3)
-                                            <i class="fa fa-smile rat"></i>
-                                            @else                                        
-                                            <i class="far fa-smile"></i>
-                                            @endif
-                                        </div>
-                                        <div class="star pr-2"  data-value="4" data-id="{{$rat->id}}" title="Rất hài lòng">
-                                            @if ($rat->level==4)
-                                                <i class="fa fa-kiss-wink-heart rat"></i>
-                                            @else
-                                                <i class="far fa-kiss-wink-heart"></i>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endforeach
-                            
-                            @else
-                            
-                            <div class="star-body d-flex justify-content-center">
-                                <div class="star pr-2" data-value="1" data-id="{{$product->id}}" title="Không hài lòng">
-                                    <i class="far fa-frown"></i>
-                                </div>
-                                <div class="star pr-2"  data-value="2" data-id="{{$product->id}}" title="Bình thường">
-                                    <i class="far fa-meh"></i>
-                                </div>
-                                <div class="star pr-2"  data-value="3" data-id="{{$product->id}}" title="Hài lòng">
-                                    <i class="far fa-smile"></i>
-                                </div>
-                                <div class="star pr-2"  data-value="4" data-id="{{$product->id}}" title="Rất hài lòng">
-                                    <i class="far fa-kiss-wink-heart"></i>
-                                </div>
-                            </div>
-                                
-                            @endif
-                            </div>
                     </div>
 
                     <div class="success-ratting text-success"></div>
@@ -236,122 +259,26 @@
                     </div>
                 @else
                     <a class="text-primary" href="/dang-nhap">Đăng nhập để đánh giá và bình luận! </a>
-                    <div class="ratting d-flex justify-content-around">
-                        <div class="d-block">
-
-                            <div class="ratting-item">
-                                <i class="far fa-frown text-warning"></i> <span>{{count($level_1)}} đánh giá</span>
-                            </div>
-                            <div class="ratting-item">
-                                <i class="far fa-meh text-warning"></i> <span>{{count($level_2)}} đánh giá</span>
-                            </div>
-                            <div class="ratting-item">
-                                <i class="far fa-smile text-warning"></i> <span>{{count($level_3)}} đánh giá</span>
-                            </div>
-                            <div class="ratting-item">
-                                <i class="far fa-kiss-wink-heart text-warning"></i> <span>{{count($level_4)}} đánh giá</span>
-                            </div>
-                        </div>
-
-                        <div class="d-block">
-                            @if (count($level_2) ==0 && count($level_3) ==0 && count($level_1) ==0 && count($level_4)==0 )
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                            @else
-                                
-                            @if (count($level_4) > count($level_3) && count($level_4) > count($level_2)  && count($level_4) > count($level_1) )
-                                 
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                              @endif
-                              @if (count($level_3) > count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-
-                              @endif
-  
-                              @if (count($level_2) > count($level_4) && count($level_2) > count($level_3)  && count($level_2) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-
-                              @endif
-                              
-                              @if (count($level_1) > count($level_4) && count($level_1) > count($level_3)  && count($level_1) > count($level_2))
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_3) < count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_3) == count($level_4) && count($level_3) > count($level_2)  && count($level_3) > count($level_1))
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                              @endif
-                              
-                              @if (count($level_1) == count($level_4) && count($level_1) == count($level_2) && count($level_1) == count($level_3))
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="far fa-star"></i>
-                              <i class="far fa-star"></i>
-                              <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_1) == count($level_2) && count($level_1) == count($level_3) && count($level_1) > count($level_4))
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fas fa-star-half-alt"></i>
-                              <i class="far fa-star"></i>
-                              <i class="far fa-star"></i>
-                              @endif
-                              @if (count($level_2) == count($level_3) && count($level_2) == count($level_4) && count($level_2) > count($level_1))
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fas fa-star"></i>
-                              <i class="far fa-star"></i>
-                              <i class="far fa-star"></i>
-                              @endif
-                            @endif
-                        </div>
-                    </div>
                 @endif
+
+                
                 <div class="comment-body mt-3">
                    @foreach ($comment as $cmt)
                    <div class="form-group div-comment" >
-                       <p class="name text-primary">{{$cmt->name}}</p>
-                       <span class="blockquote-footer">
-                        {{$cmt->created_at}}
-                       </span>
-                       <p class="content ml-3 text-muted">{{$cmt->body}}</p>
-                       @if (Auth::check())
-                            @if ( Auth::user()->name == $cmt->name)
-                            <span class="text-danger delete" id="" style="cursor: pointer" data-id="{{$cmt->id}}">Xóa</span>
-                                @else
-                                    
-                                @endif
-                       @else
-                           
-                       @endif
+                       <p class="name text-primary">{{$cmt->users->fullname}}</p>
+                       <div class="d-flex justify-content-between">
+                           <p class="content ml-3 text-muted">{{$cmt->body}}</p>
+                           <span class="text-secondary text-xxs">{{$cmt->created_at}}</span>
+                        </div>
+                        @if (Auth::check())
+                             @if ( Auth::user()->id == $cmt->user_id)
+                             <span class="text-danger delete" id="" style="cursor: pointer" data-id="{{$cmt->id}}">Xóa</span>
+                                 @else
+                                     
+                                 @endif
+                        @else
+                            
+                        @endif
                        
                        <div style=" width:100%;height: .1px; background:rgb(246, 243, 243)"></div>
                    </div>
@@ -364,6 +291,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script>
    $(document).ready(function(){
+    //add cart
         $('.add').click(function(){
             var id=$('.id').val();
             var qty=$('.qty').val();
@@ -423,7 +351,7 @@
             }
 
         });
-
+        //delete comment
         $(".delete").click(function(){
             var id= $(this).attr("data-id");
             var view =  $(this).parents('.div-comment').remove();
@@ -434,7 +362,8 @@
              });
         });
 
-        $(".like").click(function(){
+        //like
+        $(".like").click(function(){ 
             var id=$('.id').val();
             $.post("/ajax/product-like",
             {
@@ -448,24 +377,74 @@
             });
         });
 
+
         //star
-        $(".star").click(function(e) {
-            var id = $(this).data('id');
-            var icon = $(this).data('value');
-            var product_id=$('.id').val();
-
-            $.post("/ajax/ratting",
-                {
-                    _token: '{{ csrf_token() }}',
-                    id:id,
-                    icon:icon,
-                    product_id:product_id,
-                },
-                function(data){
-                    location.reload('san-pham/'+product_id);
-
-                });
+        /* 1. Visualizing things on Hover - See next part for action on click */
+        $('#stars li').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+        
+            // Now highlight all the stars that's not after the current hovered star
+            $(this).parent().children('li.star').each(function(e){
+            if (e < onStar) {
+                $(this).addClass('hover');
+            }
+            else {
+                $(this).removeClass('hover');
+            }
+            });
+            
+        }).on('mouseout', function(){
+            $(this).parent().children('li.star').each(function(e){
+            $(this).removeClass('hover');
+            });
         });
+        
+        
+        /* 2. Action to perform on click */
+        $('#stars li').on('click', function(){
+            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+            var stars = $(this).parent().children('li.star');
+            
+            for (i = 0; i < stars.length; i++) {
+            $(stars[i]).removeClass('selected');
+            }
+            
+            for (i = 0; i < onStar; i++) {
+            $(stars[i]).addClass('selected');
+            }
+            
+            // JUST RESPONSE (Not needed)
+            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+            var id = $('.id').val();
+            var rat_id = parseInt($('#stars li.star').last().data('id'), 10);
+            $.post("/ajax/ratting",
+            {
+                _token: '{{ csrf_token() }}',
+                id:id,
+                ratingValue:ratingValue,
+                rat_id:rat_id,
+            },
+            function(data){
+                location.reload('/san-pham/'+id);
+            });
+            // console.log(ratingValue,id,rat_id);
+            var msg = "";
+            if (ratingValue > 1) {
+                msg = "Cảm ơn! Bạn đã đánh giá " + ratingValue + " sao.";
+            }
+            else {
+                msg = "Chúng tôi sẽ cải thiện sản phẩm. Bạn đã đánh giá " + ratingValue + " sao.";
+            }
+            responseMessage(msg);
+            
+        });
+   
     });
+    function responseMessage(msg) {
+        $('.success-box').fadeIn(200); 
+        $('.success-box div.text-message').html('<i class="fas fa-check bg-success p-2 text-white mr-2" style="border-radius:1.5rem "; ></i><span>' + msg + '</span>');
+        $('.success-boxed').remove();
+        $('.success-boxing').remove();
+    }
 </script>
 @endsection
