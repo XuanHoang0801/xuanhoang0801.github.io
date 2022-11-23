@@ -55,19 +55,14 @@ class OrderController extends Controller
         $upAddress->save();
        
         $id=$request->id;
-        foreach ($id as $id){
+        foreach ($id as $id ){
             $card = Cart::get($id);
             $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $ma = substr(str_shuffle($permitted_chars),0, 16);
             $order_id ='ĐH'.$ma.'';
             $order = new order();
             $order->order_id = $order_id;
-            $order->card_id=$id;
-            $order->user_id=$user;
-            $order->status_id=1;
-            $order->product_id=$card->id;
-            $order->amount=$card->qty;
-            $order->address=$request->address;
+            $order->card_id=$id; 
             $order->total=$card->price * $card->qty;
             $order->save();
 

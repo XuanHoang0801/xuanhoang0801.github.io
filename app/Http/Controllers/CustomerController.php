@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
+use App\Models\Album;
 use App\Models\Ratting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -271,8 +272,10 @@ class CustomerController extends Controller
         $comment= Comment::with('users')->where('product_id',$id)->get();
         $like = Like::where('product_id',$id)->get();
         $qty = Cart::count();
+        $album = Album::where('product_id',$id)->get();
+
         if(!(Auth::user())){
-            return view('detail', compact('product','comment','qty','like','url'));
+            return view('detail', compact('product','comment','qty','like','url','album'));
         }
         else{
             $checklike = Like::where('product_id',$id)->where('user_id', Auth::user()->id)->get();
@@ -280,7 +283,7 @@ class CustomerController extends Controller
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
             $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
             $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
-            return view('detail', compact('product','comment','qty','amount','like','checklike','url','notify','amount_notify','rat'));
+            return view('detail', compact('product','comment','qty','amount','like','checklike','url','notify','amount_notify','rat','album'));
         }
     }
     public function card(Request $request,$id)

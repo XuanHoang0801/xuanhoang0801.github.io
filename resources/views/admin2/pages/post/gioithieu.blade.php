@@ -25,7 +25,7 @@
                     <input type="hidden" name="categories" value="{{$post->categories_id}}">
                   </div>
                   <div class="col-md-2">
-                    <label for="validationDefault04" class="form-label">Ảnh sản phẩm</label>
+                    <label for="validationDefault04" class="form-label">Ảnh đại diện</label>
                     <input type="file" class="form-control" name="file">
                     <img src="/assets/img/{{$post->image}}" alt="" width="100" class="mt-3">
                   </div>

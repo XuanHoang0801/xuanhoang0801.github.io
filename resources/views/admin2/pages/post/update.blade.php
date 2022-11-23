@@ -38,7 +38,7 @@
                     </select>
                   </div>
                   <div class="col-md-2">
-                    <label for="validationDefault04" class="form-label">Ảnh sản phẩm</label>
+                    <label for="validationDefault04" class="form-label">Ảnh đại diện</label>
                     <input type="file" name="file" id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
                     <img src="/assets/img/{{$post->image}}" id="image" alt="" width="100" class="mt-3">
                   </div>

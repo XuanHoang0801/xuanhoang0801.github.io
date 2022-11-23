@@ -64,7 +64,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Ngày sinh:</label>
-                                    <span> {{$client->birthday}}</span>
+                                    <span> 
+                                      <?php
+                                       $date=date_create($client->birthday);
+                                        echo date_format($date,"d/m/Y");
+                                      ?>
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-6">

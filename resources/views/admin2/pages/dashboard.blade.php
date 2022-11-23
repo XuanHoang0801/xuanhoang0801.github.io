@@ -69,7 +69,7 @@
           </div>
         </div>
       </a>
-      <a href="/admin/quan-ly-don-hang/da-giao" class="col-xl-3 col-sm-6">
+      {{-- <a href="/admin/quan-ly-don-hang/da-giao" class="col-xl-3 col-sm-6">
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
@@ -78,7 +78,6 @@
                   <p class="text-sm mb-0 text-capitalize font-weight-bold">Đơn hàng đã giao</p>
                   <h5 class="font-weight-bolder mb-0">
                     {{count($giao)}}
-                    {{-- <span class="text-success text-sm font-weight-bolder">+5%</span> --}}
                   </h5>
                 </div>
               </div>
@@ -90,7 +89,29 @@
             </div>
           </div>
         </div>
+      </a> --}}
+      <a href="/admin/quan-ly-don-hang/da-giao" class="col-xl-3 col-sm-6">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Doanh thu</p>
+                  <h5 class="font-weight-bolder mb-0">
+                    {{number_format($sum)}} &#8363
+                  </h5>
+                </div>
+              </div>
+              <div class="col-4 text-end">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <i class="fa fa-dollar-sign text-lg opacity-10"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </a>
+      
     </div>
     <div class="row mt-4">
       <div class="col-lg-7 mb-lg-0 mb-4">

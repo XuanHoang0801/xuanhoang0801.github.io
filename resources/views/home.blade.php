@@ -22,7 +22,7 @@
       <!-- Responsive-->
       <link rel="stylesheet" href="assets/css/responsive.css">
       <!-- fevicon -->
-      <link rel="icon" href="assets/images/logo.png" type="image/gif" />
+      <link rel="icon" href="assets/img/logo.png" type="image/gif" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
       <!-- Scrollbar Custom CSS -->
@@ -174,7 +174,7 @@
                         </ul>
                      </div>
                      <div class="col-md-4">
-                        <a class="logo" href="#"><img src="assets/images/logo.png" alt="#"/></a>
+                        <a class="logo" href="/"><img width="120" src="assets/img/logo.png" alt="#" title="HitShop"/></a>
                      </div>
                      <div class="col-md-4">
                         <ul class="right_icon d_none1">
@@ -219,83 +219,7 @@
             @yield('content')
          </div>
       </div>
-      <!-- end project section -->
-      <!-- fashion section -->
-      {{-- <div class="fashion">
-         <img src="assets/images/fashion.jpg" alt="#"/>
-      </div> --}}
-      <!-- end fashion section -->
-      <!-- news section -->
-      {{-- <div class="news">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>Letest News</h2>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-12 margin_top40">
-                  <div class="row d_flex">
-                     <div class="col-md-5">
-                        <div class="news_img">
-                           <figure><img src="assets/images/news_img1.jpg"></figure>
-                        </div>
-                     </div>
-                     <div class="col-md-7">
-                        <div class="news_text">
-                           <h3>Specimen book. It has survived not only five</h3>
-                           <span>7 July 2019</span> 
-                           <div class="date_like">
-                              <span>Like </span><span class="pad_le">Comment</span>
-                           </div>
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-12 margin_top40">
-                  <div class="row d_flex">
-                     <div class="col-md-5">
-                        <div class="news_img">
-                           <figure><img src="assets/images/news_img2.jpg"></figure>
-                        </div>
-                     </div>
-                     <div class="col-md-7">
-                        <div class="news_text">
-                           <h3>Specimen book. It has survived not only five</h3>
-                           <span>7 July 2019</span> 
-                           <div class="date_like">
-                              <span>Like </span><span class="pad_le">Comment</span>
-                           </div>
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-12 margin_top40">
-                  <div class="row d_flex">
-                     <div class="col-md-5">
-                        <div class="news_img">
-                           <figure><img src="assets/images/news_img3.jpg"></figure>
-                        </div>
-                     </div>
-                     <div class="col-md-7">
-                        <div class="news_text">
-                           <h3>Specimen book. It has survived not only five</h3>
-                           <span>7 July 2019</span> 
-                           <div class="date_like">
-                              <span>Like </span><span class="pad_le">Comment</span>
-                           </div>
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div> --}}
+      
       <!-- end news section -->
       <!-- three_box section -->
       <div class="three_box mt-5">
@@ -370,8 +294,7 @@
       <!-- Javascript files-->
       {{-- <script src="assets/js/jquery.min.js"></script> --}}
       {{-- <script src="assets/js/popper.min.js"></script> --}}
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-      {{-- <script src="assets/js/jquery-3.0.0.min.js"></script> --}}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>      {{-- <script src="assets/js/jquery-3.0.0.min.js"></script> --}}
       <!-- sidebar -->
       {{-- <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script> --}}
       {{-- <script src="assets/js/custom.js"></script> --}}

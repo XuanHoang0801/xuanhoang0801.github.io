@@ -42,7 +42,7 @@
             <div class="project_box" data-id="{{$p->id}}" title="{{$p->name}}">
                <a href="/san-pham/{{$p->id}}">
                   <div class="dark_white_bg" >
-                     <img  src="assets/img/{{$p->image}}" alt="#" width="500">
+                     <img  src="assets/img/product/{{$p->image}}" alt="#" width="500">
                   </div>
                   <h3  class="text-center" style="text-transform: uppercase;"><b>{{$p->name}}</b></h3>
       
@@ -66,7 +66,7 @@
          <div class="project_box" data-id="{{$l->id}}" title="{{$l->name}}">
             <a href="/san-pham/{{$l->id}}">
                 <div class="dark_white_bg" >
-                    <img  src="assets/img/{{$l->image}}" alt="#" width="500"/>
+                    <img  src="assets/img/product/{{$l->image}}" alt="#" width="500"/>
                 </div>
                 <h3 class="text-center" style="text-transform: uppercase;"><b>{{$l->name}}</b></h3>
    

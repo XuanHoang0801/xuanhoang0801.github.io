@@ -57,7 +57,7 @@ class AjaxController extends Controller
                 <div class="project_box" data-id="'.$list->id.'">
                     <a href="/san-pham/'.$list->id.'">
                     <div class="dark_white_bg" >
-                        <img  src="assets/img/'.$list->image.'" alt="#" width="500">
+                        <img  src="assets/img/product/'.$list->image.'" alt="#" width="500">
                     </div>
                     <h3  class="text-center" style="text-transform: uppercase;"><b>'.$list->name.'</b></h3>
         
@@ -80,7 +80,7 @@ class AjaxController extends Controller
                     <div class="project_box" data-id="'.$list->id.'">
                         <a href="/san-pham/'.$list->id.'">
                         <div class="dark_white_bg" >
-                            <img  src="assets/img/'.$list->image.'" alt="#" width="500">
+                            <img  src="assets/img/product/'.$list->image.'" alt="#" width="500">
                         </div>
                         <h3  class="text-center" style="text-transform: uppercase;"><b>'.$list->name.'</b></h3>
             
@@ -108,7 +108,7 @@ class AjaxController extends Controller
                     <div class="project_box" data-id="'.$list->id.'">
                         <a href="/san-pham/'.$list->id.'">
                         <div class="dark_white_bg" >
-                            <img  src="assets/img/'.$list->image.'" alt="#" width="500">
+                            <img  src="assets/img/product/'.$list->image.'" alt="#" width="500">
                         </div>
                         <h3  class="text-center" style="text-transform: uppercase;"><b>'.$list->name.'</b></h3>
             
@@ -132,7 +132,7 @@ class AjaxController extends Controller
                     <div class="project_box" data-id="'.$list->id.'">
                         <a href="/san-pham/'.$list->id.'">
                         <div class="dark_white_bg" >
-                            <img  src="assets/img/'.$list->image.'" alt="#" width="500">
+                            <img  src="assets/img/product/'.$list->image.'" alt="#" width="500">
                         </div>
                         <h3  class="text-center" style="text-transform: uppercase;"><b>'.$list->name.'</b></h3>
             
@@ -156,7 +156,7 @@ class AjaxController extends Controller
                     <div class="project_box" data-id="'.$list->id.'">
                         <a href="/san-pham/'.$list->id.'">
                         <div class="dark_white_bg" >
-                            <img  src="assets/img/'.$list->image.'" alt="#" width="500">
+                            <img  src="assets/img/product/'.$list->image.'" alt="#" width="500">
                         </div>
                         <h3  class="text-center" style="text-transform: uppercase;"><b>'.$list->name.'</b></h3>
             
@@ -182,7 +182,7 @@ class AjaxController extends Controller
                 <div class="project_box" data-id="'.$list->id.'">
                     <a href="/san-pham/'.$list->id.'">
                         <div class="dark_white_bg" >
-                            <img  src="assets/img/'.$list->image.'" alt="#" width="500">
+                            <img  src="assets/img/product/'.$list->image.'" alt="#" width="500">
                         </div>
                         <h3  class="text-center" style="text-transform: uppercase;"><b>'.$list->name.'</b></h3>
                         <p class="text-warning">'.number_format($list->price).' &#8363</p>

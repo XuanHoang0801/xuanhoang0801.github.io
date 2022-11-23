@@ -9,7 +9,7 @@
                  <div class="text-bg">
                     <h1> <span class="blodark"> HitShop </span> <br>Trends 2022</h1>
                     <p>A huge fashion collection for ever </p>
-                    <a class="read_more" href="#">Shop now</a>
+                    <a class="read_more" href="/san-pham">Shop now</a>
                  </div>
               </div>
                             
@@ -82,7 +82,7 @@
                            <a href="/san-pham/{{$item->id}}">
                               
                                <div class="dark_white_bg" >
-                                   <img  src="assets/img/{{$item->image}}" alt="#"/>
+                                   <img  src="assets/img/product/{{$item->image}}" alt="#"/>
                                </div>
                                <h3 class="text-center" style="text-transform: uppercase;"><b>{{$item->name}}</b></h3>
    

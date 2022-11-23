@@ -39,7 +39,7 @@
                             <td >
                                 <a class="d-flex" href="/san-pham/{{$item->product_id}}">
 
-                                    <img src="assets/img/{{$item->products->image}}" alt="" srcset="" width="50">
+                                    <img src="assets/img/product/{{$item->products->image}}" alt="" srcset="" width="50">
                                     <span class="ml-3">{{$item->products->name}}</span>
                                 </a>
                             </td>

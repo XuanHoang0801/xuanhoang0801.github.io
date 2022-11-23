@@ -10,6 +10,7 @@ use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Album;
 use Laravel\Ui\Presets\React;
 
 class ProductController extends Controller
@@ -49,7 +50,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         $product=new product();
         $product->name=$request->name;
@@ -59,6 +60,7 @@ class ProductController extends Controller
         $product->producer_id=$request->producer;
         $product->user_id=$request->user()->id;
         $product->price=$request->price;
+        
         
         if (!($request->hasFile('file'))) {
             $product->image='img.png';
@@ -70,6 +72,19 @@ class ProductController extends Controller
             $upload = $file->move('assets/img/',$name); //upload file vào thư mục     
         }
         $product->save();
+
+        if(isset($request->album)){
+            foreach($request->album as $photo){
+                $file = $request->file('album');
+                $image = $file->getClientOriginalName();
+                $file->move('assets/img/product',$image);
+                $album = new Album();
+                $album->image = $image;
+                $album->product_id = $product->id;
+
+                $album->save();
+            }
+        }
         return redirect('/admin/quan-ly-san-pham/create')->with(['thongbao'=>'Đã thêm sản phẩm mới!']);
     }
 
@@ -84,10 +99,11 @@ class ProductController extends Controller
         $product=product::with('categories','nsx','users')->find($id);
         $notify = Notify::where('style',0)->orderBy('id', 'DESC')->get();
         $amount = Notify::where('status',0)->where('style',0)->get();
+        $album = Album::where('product_id',$id)->get();
         $url = $request->url();
         $categories=Categories::all();
         $producer=nsx::all();
-        return view('admin2.pages.product.update',compact('product','categories','producer','notify','amount','url'));
+        return view('admin2.pages.product.update',compact('product','categories','producer','notify','amount','url','album'));
     }
 
     /**
@@ -130,6 +146,18 @@ class ProductController extends Controller
             $upload = $file->move('assets/img/',$name); //upload file vào thư mục           
         }
         $product->save();
+
+        if(isset($request->album)){
+            foreach($request->album as $photo){
+                $file = $photo;
+                $image = $file->getClientOriginalName();
+                $file->move('assets/img/product',$image);
+                $album = new Album();
+                $album->image = $image;
+                $album->product_id =$id;
+                $album->save();
+            }
+        }
         return redirect('/admin/quan-ly-san-pham/'.$id.'')->with(['thongbao'=>'Cập nhật sản phẩm thành công!']);
     }
 

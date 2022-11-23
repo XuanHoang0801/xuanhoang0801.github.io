@@ -36,12 +36,15 @@
                           <p class=" text-secondary text-center">{{$stt++}}</p>   
                       </td>
                       <td>
-
-                        <img src="assets/img/{{$item->image}}" alt="" width="35">
-                      </td>
-                      <td>
-                        <p class="text-uppercase font-weight-bold mb-0">{{$item->name}}</p> 
-                      </td>
+                          <a href="/admin/quan-ly-san-pham/{{$item->id}}">
+                            <img src="assets/img/product{{$item->image}}" alt="" width="35">
+                          </a>
+                        </td>
+                        <td>
+                          <a href="/admin/quan-ly-san-pham/{{$item->id}}">
+                            <p class="text-uppercase font-weight-bold mb-0">{{$item->name}}</p> 
+                          </a>
+                        </td>
                       <td>
                         <p class="font-weight-bold mb-0 text-danger">{{number_format($item->price)}} &#8363</p>
                       </td>
