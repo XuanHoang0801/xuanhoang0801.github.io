@@ -185,8 +185,9 @@
                               </a> 
                               
                            </li>
-                           
-                           <a href="/don-hang" class="order">Đơn hàng</a> 
+                           @if (Auth::user())
+                              <a href="/don-hang" class="order">Đơn hàng</a> 
+                           @endif
 
                            <li>
 

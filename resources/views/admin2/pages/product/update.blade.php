@@ -64,14 +64,7 @@
                     </select>
                     <label for="validationDefault04" class="form-label my-2">Ảnh sản phẩm</label>
                     <input type="file" name="file" id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
-                    <img src="/assets/img/{{$product->image}}" id="image" alt="" width="100" class="mt-3">
-                  </div>
-                  <label for="validationDefault04" class="form-label mt-3">Album</label>
-                  <input type="file" name="album[]" multiple  id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
-                  <div class="d-flex">
-                    @foreach ($album as $album)
-                        <img src="/assets/img/product/{{$album->image}}" id="image" alt="" width="100">
-                    @endforeach
+                    <img src="/assets/img/product/{{$product->image}}" id="image" alt="" width="100" class="mt-3">
                   </div>
                   <div class="col-md-2">
                     <label for="validationDefaultUsername" class="form-label">Nhà sản xuất</label>
@@ -89,6 +82,14 @@
                     </select>
 
                   </div>
+                  <label for="validationDefault04" class="form-label mt-3">Album</label>
+                  <input type="file" name="album[]" multiple  id="imageFile"  class="form-control col-4">
+                  <div class="d-flex">
+                    @foreach ($album as $album)
+                        <img src="/assets/img/product/{{$album->image}}" id="image" alt="" width="100">
+                    @endforeach
+                  </div>
+                 
                   <label for="validationDefault01" class="form-label">Mô tả sản phẩm</label>
                   <textarea type="text" class="ckeditor @error('body') is-invalid @enderror" value="{{old('body')}}" name="body" placeholder="Nhập mô tả sản phẩm...">{{$product->body}}</textarea>
                   @error('body')

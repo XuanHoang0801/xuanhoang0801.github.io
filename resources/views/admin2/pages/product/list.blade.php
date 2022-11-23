@@ -37,7 +37,7 @@
                       </td>
                       <td>
                           <a href="/admin/quan-ly-san-pham/{{$item->id}}">
-                            <img src="assets/img/product{{$item->image}}" alt="" width="35">
+                            <img src="assets/img/product/{{$item->image}}" alt="" width="35">
                           </a>
                         </td>
                         <td>

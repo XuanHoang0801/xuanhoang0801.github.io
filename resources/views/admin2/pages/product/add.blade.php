@@ -62,8 +62,8 @@
                     <input type="file" name="file" id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
                     <img src="assets/img/img.png" alt="" srcset="" width="100" id="image" class="mt-3">
                     <label for="validationDefault04" class="form-label mt-3">Album</label>
-                    <input type="file" name="album[]" multiple  id="imageFile"  onchange= "chooseFile(this)"  class="form-control col-4">
-                    <img src="assets/img/img.png" alt="" srcset="" width="100" id="image" class="mt-3">
+                    <input type="file" name="album[]" multiple  id="imageFile"  class="form-control col-4">
+                    {{-- <img src="assets/img/img.png" alt="" srcset="" width="100" id="image" class="mt-3"> --}}
 
                   </div>
                   <div class="col-md-3">

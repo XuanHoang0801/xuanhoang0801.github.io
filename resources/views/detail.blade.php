@@ -8,7 +8,7 @@
                 <div class="body-image">
                     {{-- <img src="assets/img/{{$product->image}}" alt=""> --}}
 
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active ">
                                 <img src="assets/img/product/{{$product->image}}" class="d-block " width="240" height="228" alt="...">
@@ -41,7 +41,10 @@
                     @else
                         <span>Kho: </span><span class="text-primary">{{$product->qty}}</span></br>
                     @endif
-                    <span>Đã bán: </span><span class="text-primary">{{$product->buy}} </span> <span>sản phẩm</span></br>
+                    @if ($product->buy > 0)
+                        <span>Đã bán: </span><span class="text-primary">{{$product->buy}} </span> <span>sản phẩm</span></br>  
+                    @else  
+                    @endif
                     <span>Lượt xem: </span><span class="text-success">{{$product->view}} <i class="fas fa-eye text-success"></i></span></br>
 
                     <button type="button" class="btn btn-warning mt-3 add">Thêm vào giỏ hàng</button>

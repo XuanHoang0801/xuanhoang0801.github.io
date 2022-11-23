@@ -69,19 +69,18 @@ class ProductController extends Controller
             $file= $request->file('file');
             $name = $file->getClientOriginalName(); //Lấy tên file
             $product->image=$name;
-            $upload = $file->move('assets/img/',$name); //upload file vào thư mục     
+            $upload = $file->move('assets/img/product',$name); //upload file vào thư mục     
         }
         $product->save();
 
         if(isset($request->album)){
             foreach($request->album as $photo){
-                $file = $request->file('album');
+                $file = $photo;
                 $image = $file->getClientOriginalName();
                 $file->move('assets/img/product',$image);
                 $album = new Album();
                 $album->image = $image;
-                $album->product_id = $product->id;
-
+                $album->product_id =$product->id;
                 $album->save();
             }
         }
