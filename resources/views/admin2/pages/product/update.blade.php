@@ -82,6 +82,15 @@
                     </select>
 
                   </div>
+
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="hot" @if ($product->hot ==1)
+                        checked
+                    @else
+                        
+                    @endif>
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Nổi bật</label>
+                  </div>
                   <label for="validationDefault04" class="form-label mt-3">Album</label>
                   <input type="file" name="album[]" multiple  id="imageFile"  class="form-control col-4">
                   <div class="d-flex">

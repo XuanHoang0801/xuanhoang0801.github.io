@@ -307,4 +307,19 @@ class AjaxController extends Controller
             $ratting->save();   
         } 
     }
+
+    public function hot(Request $request)
+    {
+        $id = $request->id;
+        $hot = $request->hot;
+        $product = product::find($id);
+        if ($hot == 'true') {
+            $product->hot = 1;
+        } 
+       else{
+            $product->hot = 0;
+        }
+        $product->save();
+        
+    }
 }

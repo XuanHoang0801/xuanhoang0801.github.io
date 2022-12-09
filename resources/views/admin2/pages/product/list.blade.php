@@ -23,6 +23,7 @@
                     {{-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Giá km</th> --}}
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Thể loại</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nhà sản xuất</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nổi bật</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Người đăng</th>
                     <th class="text-uppercase text-secondary text-center text-xs font-weight-bolder opacity-7">Hành động</th>
                   </tr>
@@ -31,7 +32,7 @@
                     <?php $stt=1 ?>
                     @foreach ($product as $item)
                         
-                    <tr>
+                    <tr data-id="{{$item->id}}">
                       <td>
                           <p class=" text-secondary text-center">{{$stt++}}</p>   
                       </td>
@@ -56,6 +57,14 @@
                       </td>
                       <td>
                         <p class="text-uppercase font-weight-bold mb-0 text-center">{{$item->nsx->name}}</p>
+                      </td>
+                      <td>
+                        <div class="form-check form-switch" style="margin: auto 20px"> 
+                          <input class="form-check-input hot" type="checkbox" role="switch" id="flexSwitchCheckChecked"  name="hot" @if ($item->hot ==1)
+                          checked>
+                          @else
+                          @endif
+                        </div>
                       </td>
                       <td>
                         <p class="font-weight-bold mb-0 text-center">{{$item->users->name}}</p>
@@ -107,6 +116,29 @@
       });
       $('.garde').click(function(){
         window.location.href = "/admin/quan-ly-san-pham/da-xoa";
+      });
+
+      $('.hot').click(function(){
+        var id = $(this).parents('tr').attr('data-id');
+        var hot = $(this).prop('checked');
+        // console.log(hot);
+        
+          
+          $.post("/ajax/hot",
+            {
+                _token: '{{ csrf_token() }}',
+                id:id,
+                hot:hot,
+            },
+            function(data){
+            });  
+          // if (hot == true) {
+          //   $('.label-hot').html('Bật');
+          // } else {
+          //   $('.label-hot').html('Tắt');
+            
+          // }   
+       
       });
 
     });

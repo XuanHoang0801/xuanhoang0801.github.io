@@ -476,11 +476,9 @@ ul.right_icon li img {
 /** banner section **/
 
 .banner_main {
-     background: url(../images/banner.jpg);
-     padding: 97px 0px 0px 0px;
-     background-size: 100% 100%;
-     background-repeat: no-repeat;
-     min-height: 698px;
+     /* background: url(../images/banner.jpg); */
+     margin: 20px 0;
+     /* min-height: 698px; */
 }
 
 .blodark {
@@ -627,7 +625,7 @@ position: absolute;
      /* background: url(../images/product_bg.jpg); */
      background-size: 100% 100%;
      background-repeat: no-repeat;
-     padding: 90px 0 90px 0;
+     padding: 20px 0;
 }
 
 .project .titlepage {

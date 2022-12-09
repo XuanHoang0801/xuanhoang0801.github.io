@@ -3,17 +3,33 @@
 @section('banner')
       <!-- banner -->
       <section class="banner_main">
-        <div class="container">
-           <div class="row">
-              <div class="col-md-8">
-                 <div class="text-bg">
-                    <h1> <span class="blodark"> HitShop </span> <br>Trends 2022</h1>
-                    <p>A huge fashion collection for ever </p>
-                    <a class="read_more" href="/san-pham">Shop now</a>
-                 </div>
-              </div>
-                            
-           </div>
+        <div class="container d-flex">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+               <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" style="height:2px;background:#000" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="height:2px;background:#000"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" style="height:2px;background:#000"></button>
+               </div>
+               <div class="carousel-inner">
+                  <div class="carousel-item active">
+                     <img src="/assets/img/banner/{{$show->image}}" class="d-block " alt="..." width="800">
+                  </div>
+                     @foreach ($banner as $banner)
+                        @if ($banner->id == $show->id)
+                           
+                        @else
+                           
+                        <div class="carousel-item">
+                           <img src="/assets/img/banner/{{$banner->image}}" class="d-block  " alt="..." width="800">
+                        </div>
+                        @endif
+                     @endforeach
+               </div>
+            </div>
+
+            <div class="show-product ml-3">
+             
+            </div>
         </div>
      </section>
      <!-- end banner -->

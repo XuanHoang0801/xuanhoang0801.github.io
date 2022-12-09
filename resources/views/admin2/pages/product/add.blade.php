@@ -50,6 +50,10 @@
                       
                     </div>
 
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="hot" checked>
+                      <label class="form-check-label" for="flexSwitchCheckChecked">Nổi bật</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
                     <label for="validationDefault02" class="form-label">Thể loại</label>
@@ -64,16 +68,17 @@
                     <label for="validationDefault04" class="form-label mt-3">Album</label>
                     <input type="file" name="album[]" multiple  id="imageFile"  class="form-control col-4">
                     {{-- <img src="assets/img/img.png" alt="" srcset="" width="100" id="image" class="mt-3"> --}}
-
+                    
+                    
                   </div>
                   <div class="col-md-3">
                     <label for="validationDefaultUsername" class="form-label">Nhà sản xuất</label>
                     <select name="producer" class="form-select" id="producer">
                       @foreach ($producer as $pr)
-                          <option value="{{$pr->id}}">{{$pr->name}}</option>
+                      <option value="{{$pr->id}}">{{$pr->name}}</option>
                       @endforeach
                     </select>
-
+                    
                   </div>
                   
                   <label for="validationDefault01" class="form-label">Mô tả sản phẩm</label>
@@ -98,29 +103,5 @@
      </div>
     @endif
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script>
-  //  $(document).ready(function()
-  //  {
-     
-  //    $('#categories').change(function()
-  //    {
-  //      var idTheLoai = $(this).val();
-  //      $.get("admin/ajax/producer/" +idTheLoai, function(data)
-  //      {
-  //          $("#producer").html(data);
-  //        });
-  //       //  alert(idTheLoai);
-  //       });
-  //       $('.alert').delay(1000).hide(300);
-  //         setTimeout(function() 
-  //         {
-  //           $(".alert").remove();
-  //         }, 2000);
-
-  //     });
-
-
-
-</script>
     
 @endsection

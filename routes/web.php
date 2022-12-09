@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StatusController;
@@ -74,6 +75,7 @@ Route::post('/ajax/post-like',[AjaxController::class, 'likePost']);
 Route::post('/ajax/check-pass',[AjaxController::class, 'checkPass']);
 Route::post('/ajax/delete-notify',[AjaxController::class, 'deleteNotify']);
 Route::post('/ajax/ratting',[AjaxController::class, 'Ratting']);
+Route::post('/ajax/hot',[AjaxController::class, 'hot']);
 //donhang
 Route::get('/don-hang/{id}',[CustomerController::class,'detaiBill'])->middleware('login');
 Route::get('/da-giao-hang',[CustomerController::class,'DaGiao'])->middleware('login');
@@ -108,5 +110,6 @@ Route::group(['prefix'=>'/admin','middleware'=>['checkUser']], function(){
     Route::resource('/quan-ly-don-hang',OrderAdminController::class);
     Route::resource('/khach-hang',ClientController::class);
     Route::resource('/trang-thai', StatusController::class);
+    Route::resource('/banner', BannerController::class);
 });
 

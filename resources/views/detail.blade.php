@@ -9,25 +9,36 @@
                     {{-- <img src="assets/img/{{$product->image}}" alt=""> --}}
 
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active ">
-                                <img src="assets/img/product/{{$product->image}}" class="d-block " width="240" height="228" alt="...">
-                              </div>
-                            @foreach ($album as $album)
-                                
-                            <div class="carousel-item ">
-                              <img src="assets/img/product/{{$album->image}}" class="d-block " width="240" height="228" alt="...">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active ">
+                                    <img src="assets/img/product/{{$product->image}}" class="d-block " width="240" height="228" alt="...">
+                                </div>
+                                @foreach ($album as $album)
+                                    
+                                <div class="carousel-item ">
+                                <img src="assets/img/product/{{$album->image}}" class="d-block " width="240" height="228" alt="...">
+                                </div>
+                                @endforeach
+                            
                             </div>
-                            @endforeach
-                          
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                            <i class="fas fa-chevron-left text-dark"></i>
-                        </button>
-                        <button class="carousel-control-next border-none" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                            <i class="fas fa-chevron-right text-dark"></i>
-                        </button>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <i class="fas fa-chevron-left text-dark"></i>
+                            </button>
+                            <button class="carousel-control-next border-none" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <i class="fas fa-chevron-right text-dark"></i>
+                            </button>
                       </div>
+                      {{-- <div class="d-flex">
+                        <div class="carousel-item active ">
+                            <img src="assets/img/product/{{$product->image}}" class="d-block " width="240" height="228" alt="...">
+                        </div>
+                        @foreach ($album as $list)
+                            
+                        <div class="carousel-item ">
+                        <img src="assets/img/product/{{$list->image}}" class="d-block " width="240" height="228" alt="...">
+                        </div>
+                        @endforeach
+                      </div> --}}
                 </div>
                 <div class="body-form mt-3 ml-3">  
                     {{$product->categories->name}}/{{$product->nsx->name}}/<span class="text-bought">{{$product->name}}</span>

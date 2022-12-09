@@ -24,6 +24,7 @@ use Laravel\Ui\Presets\React;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Models\Album;
+use App\Models\Banner;
 use App\Models\Ratting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -229,17 +230,19 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-       $product= product::with('categories','nsx')->orderBy('id','DESC')->get();
+       $product= product::with('categories','nsx')->where('hot',1)->orderBy('id','DESC')->get();
+       $show = Banner::find(1);
+       $banner = Banner::where('status',1)->get();
        $qty  = Cart::count();
        $url = $request->url();
        if(!(Auth::user())){
-           return view('index',compact('product','qty','url'));
+           return view('index',compact('product','show','banner','qty','url'));
         }
         else{
             $amount = Wishlist::where('user_id',Auth::user()->id)->get();
             $notify = Notify::where('user_id', Auth::user()->id)->where('style',1)->orderBy('id','DESC')->get();
             $amount_notify = Notify::where('user_id', Auth::user()->id)->where('status',0)->where('style',1)->get();
-           return view('index',compact('product','qty','amount','url','notify','amount_notify'));
+           return view('index',compact('product','qty','show','banner','amount','url','notify','amount_notify'));
        }
     }
 

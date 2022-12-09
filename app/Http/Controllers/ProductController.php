@@ -60,7 +60,13 @@ class ProductController extends Controller
         $product->producer_id=$request->producer;
         $product->user_id=$request->user()->id;
         $product->price=$request->price;
-        
+        if($request->hot == 'on'){
+
+            $product->hot = 1;
+        }
+        else{
+            $product->hot = 0;
+        }
         
         if (!($request->hasFile('file'))) {
             $product->image='img.png';
@@ -134,6 +140,13 @@ class ProductController extends Controller
         $product->producer_id=$request->producer;
         $product->user_id=$request->user()->id;
         $product->price=$request->price;
+        if($request->hot == 'on'){
+
+            $product->hot = 1;
+        }
+        else{
+            $product->hot = 0;
+        }
 
         if (!($request->hasFile('file'))) {
            null;
